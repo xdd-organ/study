@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.study.miniprogram.article.mapper.ArticleMapper">
+
+    <insert id="insert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        <selectKey keyProperty="id" resultType="java.lang.Long">
+            select last_insert_id()
+        </selectKey>
+        INSERT INTO article
+        (
+        title,
+        TYPE,
+        content,
+        insert_author,
+        update_author
+        )
+        VALUES
+        (
+        #{title},
+        #{type},
+        #{content},
+        #{user_id},
+        #{user_id}
+        );
+    </insert>
+
+    <select id="listByArticle" parameterType="java.util.Map" resultMap="listByArticleMap">
+        SELECT 	a.*,a.insert_author ui,a.id idi,a.insert_author uii	FROM article a
+        <where>
+            <if test="title != null and title != ''">and a.title = #{title}</if>
+            <if test="type != null and type != ''">and a.type = #{type}</if>
+            <if test="state != null and state != ''">and a.state = #{state}</if>
+            <if test="status != null and status != ''">and a.status = #{status}</if>
+        </where>
+    </select>
+
+    <resultMap id="listByArticleMap"  type="java.util.Map">
+        <collection property="user" javaType="java.util.Map" column="ui" select="com.java.study.miniprogram.user.mapper.UserMapper.getByUserId"/>
+        <collection property="articleInfo" javaType="java.util.Map" column="{user_id=uii,article_id=idi}" select="com.java.study.miniprogram.article.mapper.ArticleInfoMapper.getByUserIdAndArticleId"/>
+    </resultMap>
+
+    <update id="update" parameterType="java.util.Map">
+        UPDATE article a
+        <set>
+            a.update_time = now(),
+            <if test="title != null and title != ''">a.title = #{title},</if>
+            <if test="type != null and type != ''">a.type = #{type},</if>
+            <if test="state != null and state != ''">a.state = #{state},</if>
+            <if test="status != null and status != ''">a.status = #{status},</if>
+            <if test="content != null and content != ''">a.content = #{content},</if>
+            <if test="update_author != null and update_author != ''">a.update_author = #{update_author},</if>
+        </set>
+        WHERE
+          a.id = #{id};
+    </update>
+
+    <update id="star" parameterType="java.util.Map">
+        update `article` set star = star + 1 where id = #{article_id};
+        update article_info set star = 1 where id = #{article_info_id};
+    </update>
+
+    <update id="unStar" parameterType="java.util.Map">
+        update `article` set star = star - 1 where id = #{article_id};
+        update article_info set star = 0 where article_id = #{article_id} and user_id = #{user_id};
+    </update>
+
+    <update id="watch" parameterType="java.util.Map">
+        update `article` set watch = watch + 1 where id = #{article_id};
+        update article_info set watch = 1 where id = #{article_info_id};
+    </update>
+
+    <update id="unWatch" parameterType="java.util.Map">
+        update `article` set watch = watch - 1 where id = #{article_id};
+        update article_info set watch = 0 where article_id = #{article_id} and user_id = #{user_id};
+    </update>
+
+    <update id="comment" parameterType="java.util.Map">
+        update `article` set comment = comment + 1 where id = #{article_id};
+    </update>
+
+    <update id="unComment" parameterType="java.util.Map">
+        update `article` set comment = comment - 1 where id = #{article_id};
+    </update>
+
+
+</mapper>

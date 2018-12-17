@@ -50,7 +50,7 @@ CREATE TABLE article_info
   COMMENT '点赞时间',
   watch      INT DEFAULT '0'                         NULL
   COMMENT '0：未收藏，1，收藏',
-  watch_time TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL
+  watch_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
   COMMENT '收藏时间',
   CONSTRAINT article_info_id_uindex
   UNIQUE (id)
@@ -159,7 +159,7 @@ CREATE TABLE `fault_feedback` (
    `user_id` int(11) DEFAULT NULL,
    `type` int(11) DEFAULT '0' COMMENT '处理状态，0：未处理，1：已处理',
    `result` varchar(512) DEFAULT NULL COMMENT '处理结果描述',
-   `fault_type` int(11) DEFAULT NULL COMMENT '0：其他，1：床坏了，2：锁坏了，3：还床失败',
+   `fault_type` int(11) DEFAULT NULL COMMENT '0：，1：，2：，3：',
    `device_no` varchar(64) DEFAULT NULL COMMENT '设备编号',
    `imgs` varchar(512) DEFAULT NULL COMMENT '图片',
    `desc` varchar(512) DEFAULT NULL COMMENT '备注',
@@ -169,5 +169,5 @@ CREATE TABLE `fault_feedback` (
    `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
    `update_author` int(11) DEFAULT NULL,
    PRIMARY KEY (`id`)
- ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='故障反馈';
+ ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='问题反馈';
 
