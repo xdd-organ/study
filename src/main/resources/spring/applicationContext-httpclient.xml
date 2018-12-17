@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <bean id="customRegistry" class="com.java.mobile.common.utils.httpclient.CustomRegistry"/>
+    <bean id="customRegistry" class="com.java.study.common.utils.httpclient.CustomRegistry"/>
     <!-- 用于绕过https -->
     <bean id="Registry" factory-method="build" factory-bean="customRegistry"/>
 
@@ -21,7 +21,7 @@
     </bean>
 
     <!--处理请求重试-->
-    <bean id="retryHandler" class="com.java.mobile.common.utils.httpclient.CustomHttpRequestRetryHandler"/>
+    <bean id="retryHandler" class="com.java.study.common.utils.httpclient.CustomHttpRequestRetryHandler"/>
 
     <bean id="httpClientBuilder" class="org.apache.http.impl.client.HttpClientBuilder" factory-method="create">
         <!-- 请求重试处理 -->
@@ -47,7 +47,7 @@
           factory-bean="httpClientBuilder" factory-method="build"/>
 
     <!-- 定时清理无效连接 -->
-    <bean class="com.java.mobile.common.utils.httpclient.IdleConnectionEvictor" destroy-method="shutdown">
+    <bean class="com.java.study.common.utils.httpclient.IdleConnectionEvictor" destroy-method="shutdown">
         <constructor-arg index="0" ref="httpClientConnectionManager"/>
     </bean>
 </beans>
