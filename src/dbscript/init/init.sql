@@ -22,10 +22,6 @@
   COMMENT '点赞数',
   favorite        INT DEFAULT '0'                     NULL
   COMMENT '收藏数',
-  self_like        INT DEFAULT '0'                     NULL
-  COMMENT '0:自己未点赞,1:自己点赞',
-  self_favorite        INT DEFAULT '0'                     NULL
-  COMMENT '0:自己未收藏,1:自己收藏',
   img_urls        VARCHAR(1024)                  NULL
   COMMENT '图片url',
   cover_urls        VARCHAR(1024)                  NULL

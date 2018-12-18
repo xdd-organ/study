@@ -3,9 +3,9 @@
 <mapper namespace="com.java.fanke.common.mapper.FileMapper">
 
     <insert id="upload" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        <!--<selectKey keyProperty="id" resultType="java.lang.Long">
+        <selectKey keyProperty="id" resultType="java.lang.Long">
             select last_insert_id()
-        </selectKey>-->
+        </selectKey>
         INSERT INTO file
         (
         `key`,

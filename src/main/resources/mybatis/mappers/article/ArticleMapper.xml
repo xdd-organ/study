@@ -32,6 +32,7 @@
             <if test="state != null and state != ''">and a.state = #{state}</if>
             <if test="status != null and status != ''">and a.status = #{status}</if>
         </where>
+        order by insert_time desc
     </select>
 
     <resultMap id="listByArticleMap"  type="java.util.Map">
@@ -56,30 +57,22 @@
 
     <update id="like" parameterType="java.util.Map">
         update `article` set `like` = `like` + 1 where id = #{article_id};
-        update article_info set `like` = 1
-        <if test="is_self != null and is_self != ''">, a.self_like = 1</if>
-         where id = #{article_info_id};
+        update article_info set `like` = 1 where id = #{article_info_id};
     </update>
 
     <update id="unLike" parameterType="java.util.Map">
-        update `article` set `lik`e = `like` - 1 where id = #{article_id};
-        update article_info set `like` = 0
-        <if test="is_self != null and is_self != ''">, a.self_like = 0</if>
-         where article_id = #{article_id} and user_id = #{user_id};
+        update `article` set `like` = `like` - 1 where id = #{article_id};
+        update article_info set `like` = 0 where article_id = #{article_id} and user_id = #{user_id};
     </update>
 
     <update id="favorite" parameterType="java.util.Map">
         update `article` set favorite = favorite + 1 where id = #{article_id};
-        update article_info set favorite = 1
-        <if test="is_self != null and is_self != ''">, a.self_favorite = 1</if>
-         where id = #{article_info_id};
+        update article_info set favorite = 1 where id = #{article_info_id};
     </update>
 
     <update id="unFavorite" parameterType="java.util.Map">
         update `article` set favorite = favorite - 1 where id = #{article_id};
-        update article_info set favorite = 0
-        <if test="is_self != null and is_self != ''">, a.self_favorite = 0</if>
-         where article_id = #{article_id} and user_id = #{user_id};
+        update article_info set favorite = 0 where article_id = #{article_id} and user_id = #{user_id};
     </update>
 
     <update id="comment" parameterType="java.util.Map">
