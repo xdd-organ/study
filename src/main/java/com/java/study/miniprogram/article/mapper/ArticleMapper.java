@@ -13,11 +13,11 @@ public interface ArticleMapper {
 
     int star(Map<String,Object> params);
 
-    int watch(Map<String,Object> params);
+    int collect(Map<String,Object> params);
 
     int unStar(Map<String,Object> params);
 
-    int unWatch(Map<String,Object> params);
+    int unCollect(Map<String,Object> params);
 
     int comment(Map<String,Object> params);
 

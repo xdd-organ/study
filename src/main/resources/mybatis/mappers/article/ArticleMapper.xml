@@ -56,22 +56,30 @@
 
     <update id="star" parameterType="java.util.Map">
         update `article` set star = star + 1 where id = #{article_id};
-        update article_info set star = 1 where id = #{article_info_id};
+        update article_info set star = 1
+        <if test="is_self != null and is_self != ''">, a.self_star = 1</if>
+         where id = #{article_info_id};
     </update>
 
     <update id="unStar" parameterType="java.util.Map">
         update `article` set star = star - 1 where id = #{article_id};
-        update article_info set star = 0 where article_id = #{article_id} and user_id = #{user_id};
+        update article_info set star = 0
+        <if test="is_self != null and is_self != ''">, a.self_star = 0</if>
+         where article_id = #{article_id} and user_id = #{user_id};
     </update>
 
-    <update id="watch" parameterType="java.util.Map">
-        update `article` set watch = watch + 1 where id = #{article_id};
-        update article_info set watch = 1 where id = #{article_info_id};
+    <update id="collect" parameterType="java.util.Map">
+        update `article` set collect = collect + 1 where id = #{article_id};
+        update article_info set collect = 1
+        <if test="is_self != null and is_self != ''">, a.self_watch = 1</if>
+         where id = #{article_info_id};
     </update>
 
-    <update id="unWatch" parameterType="java.util.Map">
-        update `article` set watch = watch - 1 where id = #{article_id};
-        update article_info set watch = 0 where article_id = #{article_id} and user_id = #{user_id};
+    <update id="unCollect" parameterType="java.util.Map">
+        update `article` set collect = collect - 1 where id = #{article_id};
+        update article_info set collect = 0
+        <if test="is_self != null and is_self != ''">, a.self_watch = 0</if>
+         where article_id = #{article_id} and user_id = #{user_id};
     </update>
 
     <update id="comment" parameterType="java.util.Map">

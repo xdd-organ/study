@@ -45,12 +45,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int watch(Map<String, Object> params) {
+    public int collect(Map<String, Object> params) {
         String userId = String.valueOf(params.get("user_id"));
         String articleId = String.valueOf(params.get("article_id"));
         long id = articleInfoService.insertInfo(userId, articleId);
         params.put("article_info_id", id);
-        return articleMapper.watch(params);
+        return articleMapper.collect(params);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int unWatch(Map<String, Object> params) {
-        return articleMapper.unWatch(params);
+    public int unCollect(Map<String, Object> params) {
+        return articleMapper.unCollect(params);
     }
 }

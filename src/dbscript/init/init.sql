@@ -6,7 +6,7 @@
   COMMENT '文章标题',
   type          INT                                 NULL
   COMMENT '文章类型，0：新闻，1：视频',
-  content       TEXT                                NULL
+  content       VARCHAR(2048)                       NULL
   COMMENT '内容',
   insert_author INT                                 NULL,
   insert_time   TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -16,6 +16,20 @@
   COMMENT '0:有效,1:删除',
   status        INT DEFAULT '0'                     NULL
   COMMENT '0:待审核，1：审核通过，2：审核不通过',
+  comment        INT DEFAULT '0'                     NULL
+  COMMENT '评论数量',
+  star        INT DEFAULT '0'                     NULL
+  COMMENT '点赞数',
+  collect        INT DEFAULT '0'                     NULL
+  COMMENT '收藏数',
+  self_star        INT DEFAULT '0'                     NULL
+  COMMENT '0:自己未点赞,1:自己点赞',
+  self_collect        INT DEFAULT '0'                     NULL
+  COMMENT '0:自己未收藏,1:自己收藏',
+  img_urls        VARCHAR(1024)                  NULL
+  COMMENT '图片url',
+  cover_urls        VARCHAR(1024)                  NULL
+  COMMENT '封面图片url',
   CONSTRAINT article_id_uindex
   UNIQUE (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='文章';
@@ -30,7 +44,7 @@ CREATE TABLE article_comment
   COMMENT '评论人id',
   to_user_id  INT                                 NULL
   COMMENT '评论谁',
-  content     VARCHAR(1024)                       NULL
+  content     VARCHAR(128)                       NULL
   COMMENT '评论内容',
   state       INT                                 NULL,
   insert_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -48,9 +62,9 @@ CREATE TABLE article_info
   COMMENT '0:未点赞，1：点赞',
   star_time  TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL
   COMMENT '点赞时间',
-  watch      INT DEFAULT '0'                         NULL
+  collect      INT DEFAULT '0'                         NULL
   COMMENT '0：未收藏，1，收藏',
-  watch_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+  collect_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
   COMMENT '收藏时间',
   CONSTRAINT article_info_id_uindex
   UNIQUE (id)
@@ -100,7 +114,7 @@ CREATE TABLE `user` (
   gender        INT                                 NULL
   COMMENT '值为1时是男性，值为2时是女性，值为0时是未知',
   type          INT DEFAULT '0'                     NULL
-  COMMENT '0:普通用户，1：后台管理员，2：经销商管理员'
+  COMMENT '0:教师，1：家长，2：学生，3：头条用户'
 ) ENGINE=InnoDB AUTO_INCREMENT=100000001 DEFAULT CHARSET=utf8mb4 AVG_ROW_LENGTH=1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户';
 
 CREATE TABLE `file` (
@@ -171,3 +185,15 @@ CREATE TABLE `fault_feedback` (
    PRIMARY KEY (`id`)
  ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='问题反馈';
 
+CREATE TABLE user_watch
+(
+  id            INT AUTO_INCREMENT
+    PRIMARY KEY,
+  user_id       INT                                 NULL
+  COMMENT '被关注用户id',
+  watch_user_id INT                                 NULL
+  COMMENT '关注用户id',
+  watch_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  CONSTRAINT user_watch_id_uindex
+  UNIQUE (id)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户关注';

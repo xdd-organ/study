@@ -62,16 +62,6 @@ public class ArticleController {
         return new Result(100, res);
     }
 
-    @RequestMapping("watch")
-    public Result watch(@RequestBody Map<String, Object> params, HttpSession session) {
-        Object userId = session.getAttribute("userId");
-        params.put("update_author", userId);
-        LOGGER.info("文章关注参数：{}", params);
-        int res = articleService.watch(params);
-        LOGGER.info("文章关注返回：{}", res);
-        return new Result(100, res);
-    }
-
     @RequestMapping("unStar")
     public Result unStar(@RequestBody Map<String, Object> params, HttpSession session) {
         Object userId = session.getAttribute("userId");
@@ -82,13 +72,24 @@ public class ArticleController {
         return new Result(100, res);
     }
 
+
+    @RequestMapping("collect")
+    public Result collect(@RequestBody Map<String, Object> params, HttpSession session) {
+        Object userId = session.getAttribute("userId");
+        params.put("update_author", userId);
+        LOGGER.info("文章关注参数：{}", params);
+        int res = articleService.collect(params);
+        LOGGER.info("文章关注返回：{}", res);
+        return new Result(100, res);
+    }
+
     @RequestMapping("unWatch")
     public Result unWatch(@RequestBody Map<String, Object> params, HttpSession session) {
         Object userId = session.getAttribute("userId");
         params.put("update_author", userId);
-        LOGGER.info("文章取消关注参数：{}", params);
-        int res = articleService.unWatch(params);
-        LOGGER.info("文章取消关注返回：{}", res);
+        LOGGER.info("文章取消收藏参数：{}", params);
+        int res = articleService.unCollect(params);
+        LOGGER.info("文章取消收藏返回：{}", res);
         return new Result(100, res);
     }
 
