@@ -18,4 +18,8 @@ public interface ArticleService {
     int unStar(Map<String,Object> params);
 
     int unCollect(Map<String,Object> params);
+
+    long comment(Map<String, Object> params);
+
+    int delComment(Map<String, Object> params);
 }

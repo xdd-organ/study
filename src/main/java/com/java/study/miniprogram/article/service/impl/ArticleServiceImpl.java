@@ -3,6 +3,7 @@ package com.java.study.miniprogram.article.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.java.study.miniprogram.article.mapper.ArticleMapper;
+import com.java.study.miniprogram.article.service.ArticleCommentService;
 import com.java.study.miniprogram.article.service.ArticleInfoService;
 import com.java.study.miniprogram.article.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
     @Autowired
     private ArticleInfoService articleInfoService;
+    @Autowired
+    private ArticleCommentService articleCommentService;
 
     @Override
     public long insert(Map<String, Object> params) {
@@ -61,5 +64,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int unCollect(Map<String, Object> params) {
         return articleMapper.unCollect(params);
+    }
+
+    @Override
+    public long comment(Map<String, Object> params) {
+        return 0;
+    }
+
+    @Override
+    public int delComment(Map<String, Object> params) {
+        return 0;
     }
 }

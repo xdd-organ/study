@@ -57,39 +57,48 @@ public class ArticleController {
         Object userId = session.getAttribute("userId");
         params.put("user_id", userId);
         LOGGER.info("文章点赞参数：{}", params);
-        int res = articleService.star(params);
+        int res;
+        if ("1".equals(String.valueOf(params.get("is_star")))) {
+            res = articleService.star(params);
+        } else {
+            res = articleService.unStar(params);
+        }
         LOGGER.info("文章点赞返回：{}", res);
         return new Result(100, res);
     }
 
-    @RequestMapping("unStar")
-    public Result unStar(@RequestBody Map<String, Object> params, HttpSession session) {
-        Object userId = session.getAttribute("userId");
-        params.put("user_id", userId);
-        LOGGER.info("文章取消点赞参数：{}", params);
-        int res = articleService.unStar(params);
-        LOGGER.info("文章取消点赞返回：{}", res);
-        return new Result(100, res);
-    }
-
-
     @RequestMapping("collect")
     public Result collect(@RequestBody Map<String, Object> params, HttpSession session) {
         Object userId = session.getAttribute("userId");
-        params.put("update_author", userId);
+        params.put("user_id", userId);
         LOGGER.info("文章关注参数：{}", params);
-        int res = articleService.collect(params);
+        int res;
+        if ("1".equals(String.valueOf(params.get("is_collect")))) {
+            res = articleService.collect(params);
+        } else {
+            res = articleService.unCollect(params);
+        }
         LOGGER.info("文章关注返回：{}", res);
         return new Result(100, res);
     }
 
-    @RequestMapping("unWatch")
-    public Result unWatch(@RequestBody Map<String, Object> params, HttpSession session) {
+    @RequestMapping("comment")
+    public Result comment(@RequestBody Map<String, Object> params, HttpSession session) {
         Object userId = session.getAttribute("userId");
-        params.put("update_author", userId);
-        LOGGER.info("文章取消收藏参数：{}", params);
-        int res = articleService.unCollect(params);
-        LOGGER.info("文章取消收藏返回：{}", res);
+        params.put("user_id", userId);
+        LOGGER.info("文章评论参数：{}", params);
+        long res = articleService.comment(params);
+        LOGGER.info("文章评论返回：{}", res);
+        return new Result(100, res);
+    }
+
+    @RequestMapping("delComment")
+    public Result delComment(@RequestBody Map<String, Object> params, HttpSession session) {
+        Object userId = session.getAttribute("userId");
+        params.put("user_id", userId);
+        LOGGER.info("文章删除评论参数：{}", params);
+        int res = articleService.delComment(params);
+        LOGGER.info("文章删除评论返回：{}", res);
         return new Result(100, res);
     }
 
