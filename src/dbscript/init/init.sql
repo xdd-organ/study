@@ -99,9 +99,9 @@ CREATE TABLE `user` (
   COMMENT '注册时间',
   is_disable    INT DEFAULT '0'                     NULL
   COMMENT '1：禁用，0：启用',
-  state        INT DEFAULT '0'                     NULL
-  COMMENT '0:有效，1:删除',
   status        INT DEFAULT '0'                     NULL
+  COMMENT '0:有效，1:删除',
+  state        INT DEFAULT '0'                     NULL
   COMMENT '0:未认证，1:已认证，2：认证失败',
   insert_time   TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   insert_author INT                                 NULL,
