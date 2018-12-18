@@ -15,7 +15,7 @@
 			http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
 	<!-- 注解扫描 -->
-	<context:component-scan base-package="com.java.study" />
+	<context:component-scan base-package="com.java.fanke" />
 
 	<!-- 使用spring自带的占位符替换功能 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

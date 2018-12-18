@@ -15,12 +15,12 @@
 
 	<context:property-placeholder location="classpath:config.properties" ignore-resource-not-found="true" local-override="true" file-encoding="utf-8"/>
 
-	<context:component-scan base-package="com.java.study.*.controller,com.java.study.miniprogram.*.controller" />
+	<context:component-scan base-package="com.java.fanke.*.controller,com.java.fanke.miniprogram.*.controller" />
 
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			<bean class="com.java.study.common.interceptor.MDCInterceptor"/>
+			<bean class="com.java.fanke.common.interceptor.MDCInterceptor"/>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
@@ -35,7 +35,7 @@
 			<mvc:exclude-mapping path="/anon/**"/>
 			<mvc:exclude-mapping path="/stat/**"/>
 			<mvc:exclude-mapping path="/user/login"/>
-			<bean class="com.java.study.common.interceptor.LoginInterceptor"/>
+			<bean class="com.java.fanke.common.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.java.study.miniprogram.article.mapper.ArticleMapper">
+<mapper namespace="com.java.fanke.miniprogram.article.mapper.ArticleMapper">
 
     <insert id="insert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         <selectKey keyProperty="id" resultType="java.lang.Long">
@@ -35,8 +35,8 @@
     </select>
 
     <resultMap id="listByArticleMap"  type="java.util.Map">
-        <collection property="user" javaType="java.util.Map" column="ui" select="com.java.study.miniprogram.user.mapper.UserMapper.getByUserId"/>
-        <collection property="articleInfo" javaType="java.util.Map" column="{user_id=uii,article_id=idi}" select="com.java.study.miniprogram.article.mapper.ArticleInfoMapper.getByUserIdAndArticleId"/>
+        <collection property="user" javaType="java.util.Map" column="ui" select="com.java.fanke.miniprogram.user.mapper.UserMapper.getByUserId"/>
+        <collection property="articleInfo" javaType="java.util.Map" column="{user_id=uii,article_id=idi}" select="com.java.fanke.miniprogram.article.mapper.ArticleInfoMapper.getByUserIdAndArticleId"/>
     </resultMap>
 
     <update id="update" parameterType="java.util.Map">

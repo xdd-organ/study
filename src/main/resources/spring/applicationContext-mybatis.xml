@@ -12,7 +12,7 @@
 
 
 	<!--自动扫描base-package下面的所有的java类,看看是否配置了annotation -->
-	<context:component-scan base-package="com.java.study" />
+	<context:component-scan base-package="com.java.fanke" />
 
 	<!-- 配置dataSource -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -60,7 +60,7 @@
 
 	<!-- 扫描指定包下面的Mapper，并且自动注入到bean中 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.java.study.*.mapper,com.java.study.*.*.mapper" />
+		<property name="basePackage" value="com.java.fanke.*.mapper,com.java.fanke.*.*.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 

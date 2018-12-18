@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.java.study</groupId>
-    <artifactId>study</artifactId>
+    <artifactId>fanke-miniprogram</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -37,7 +37,7 @@
 
     <properties>
         <spring.version>4.3.2.RELEASE</spring.version>
-        <fasterxml.version>2.5.1</fasterxml.version>
+        <fasterxml.version>2.9.0</fasterxml.version>
         <shiro.version>1.2.3</shiro.version>
         <lof4j.api.version>1.7.7</lof4j.api.version>
         <junit.version>4.12</junit.version>
@@ -188,7 +188,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.20</version>
+            <version>1.2.31</version>
         </dependency>
         <!-- 二维码 -->
         <dependency>
