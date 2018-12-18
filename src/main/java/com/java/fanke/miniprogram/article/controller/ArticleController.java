@@ -2,6 +2,7 @@ package com.java.fanke.miniprogram.article.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.java.fanke.common.vo.Result;
+import com.java.fanke.miniprogram.article.service.ArticleCommentService;
 import com.java.fanke.miniprogram.article.service.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,8 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ArticleCommentService articleCommentService;
 
     @RequestMapping("insert")
     public Result insert(@RequestBody Map<String, Object> params, HttpSession session) {
@@ -99,6 +102,16 @@ public class ArticleController {
         LOGGER.info("文章删除评论参数：{}", params);
         int res = articleService.delComment(params);
         LOGGER.info("文章删除评论返回：{}", res);
+        return new Result(100, res);
+    }
+
+    @RequestMapping("pageByArticleComment")
+    public Result pageByComment(@RequestBody Map<String, Object> params, HttpSession session) {
+        Object userId = session.getAttribute("userId");
+        params.put("user_id", userId);
+        LOGGER.info("分页查询文章评论参数：{}", params);
+        PageInfo res = articleCommentService.pageByArticleComment(params);
+        LOGGER.info("分页查询文章评论返回：{}", res);
         return new Result(100, res);
     }
 

@@ -8,7 +8,9 @@ import com.java.fanke.miniprogram.article.service.ArticleInfoService;
 import com.java.fanke.miniprogram.article.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -33,11 +35,13 @@ public class ArticleServiceImpl implements ArticleService {
         return new PageInfo(articleMapper.listByArticle(params));
     }
 
+    @Transactional
     @Override
     public int update(Map<String, Object> params) {
         return articleMapper.update(params);
     }
 
+    @Transactional
     @Override
     public int like(Map<String, Object> params) {
         String userId = String.valueOf(params.get("user_id"));
@@ -47,6 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.like(params);
     }
 
+    @Transactional
     @Override
     public int favorite(Map<String, Object> params) {
         String userId = String.valueOf(params.get("user_id"));
@@ -56,23 +61,32 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.favorite(params);
     }
 
+    @Transactional
     @Override
     public int unLike(Map<String, Object> params) {
         return articleMapper.unLike(params);
     }
 
+    @Transactional
     @Override
     public int unFavorite(Map<String, Object> params) {
         return articleMapper.unFavorite(params);
     }
 
+    @Transactional
     @Override
     public long comment(Map<String, Object> params) {
-        return 0;
+        articleCommentService.insert(params);
+        return articleMapper.comment(params);
     }
 
+    @Transactional
     @Override
     public int delComment(Map<String, Object> params) {
-        return 0;
+        Map<String, Object> commentParams = new HashMap<>();
+        commentParams.put("id", params.get("id"));
+        commentParams.put("state", "1");
+        articleCommentService.update(commentParams);
+        return articleMapper.delComment(params);
     }
 }

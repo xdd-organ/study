@@ -6,7 +6,47 @@
         <selectKey keyProperty="id" resultType="java.lang.Long">
             select last_insert_id()
         </selectKey>
+        INSERT INTO article_comment
+        (
+        article_id,
+        user_id,
+        to_user_id,
+        content
+        )
+        VALUES
+        (
+        #{article_id},
+        #{user_id},
+        #{to_user_id},
+        #{content}
+        );
     </insert>
+
+    <update id="update" parameterType="java.util.Map">
+        UPDATE article_comment a
+        <set>
+            <if test="content != null and content != ''">a.content = #{content},</if>
+            <if test="state != null and state != ''">a.state = #{state},</if>
+        </set>
+	    WHERE a.id = #{id} ;
+    </update>
+
+    <select id="listByArticleComment" parameterType="java.util.Map" resultMap="listByArticleCommentMap">
+    SELECT a.*, a.user_id ui
+        FROM
+        article_comment a
+        <where>
+            <if test="state != null and state != ''">and a.state = #{state}</if>
+            <if test="article_id != null and article_id != ''">and a.article_id = #{article_id}</if>
+            <if test="user_id != null and user_id != ''">and a.user_id = #{user_id}</if>
+        </where>
+        order by insert_time desc
+    </select>
+
+    <resultMap id="listByArticleCommentMap"  type="java.util.Map">
+        <collection property="user" javaType="java.util.Map" column="ui" select="com.java.fanke.miniprogram.user.mapper.UserMapper.getByUserId"/>
+    </resultMap>
+
 
 
 </mapper>

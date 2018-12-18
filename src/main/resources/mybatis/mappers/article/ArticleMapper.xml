@@ -12,6 +12,8 @@
         TYPE,
         content,
         insert_author,
+        img_urls,
+        cover_urls,
         update_author
         )
         VALUES
@@ -20,6 +22,8 @@
         #{type},
         #{content},
         #{user_id},
+        #{img_urls},
+        #{cover_urls},
         #{user_id}
         );
     </insert>

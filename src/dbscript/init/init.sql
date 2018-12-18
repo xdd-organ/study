@@ -42,7 +42,7 @@ CREATE TABLE article_comment
   COMMENT '评论谁',
   content     VARCHAR(128)                       NULL
   COMMENT '评论内容',
-  state       INT                                 NULL,
+  state       INT      DEFAULT 0                           NULL,
   insert_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   CONSTRAINT article_comment_id_uindex
   UNIQUE (id)
