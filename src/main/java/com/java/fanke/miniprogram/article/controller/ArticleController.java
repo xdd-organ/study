@@ -52,33 +52,33 @@ public class ArticleController {
         return new Result(100, res);
     }
 
-    @RequestMapping("star")
-    public Result star(@RequestBody Map<String, Object> params, HttpSession session) {
+    @RequestMapping("like")
+    public Result like(@RequestBody Map<String, Object> params, HttpSession session) {
         Object userId = session.getAttribute("userId");
         params.put("user_id", userId);
         LOGGER.info("文章点赞参数：{}", params);
         int res;
-        if ("1".equals(String.valueOf(params.get("is_star")))) {
-            res = articleService.star(params);
+        if ("1".equals(String.valueOf(params.get("is_like")))) {
+            res = articleService.like(params);
         } else {
-            res = articleService.unStar(params);
+            res = articleService.unLike(params);
         }
         LOGGER.info("文章点赞返回：{}", res);
         return new Result(100, res);
     }
 
-    @RequestMapping("collect")
-    public Result collect(@RequestBody Map<String, Object> params, HttpSession session) {
+    @RequestMapping("favorite")
+    public Result favorite(@RequestBody Map<String, Object> params, HttpSession session) {
         Object userId = session.getAttribute("userId");
         params.put("user_id", userId);
-        LOGGER.info("文章关注参数：{}", params);
+        LOGGER.info("文章收藏参数：{}", params);
         int res;
-        if ("1".equals(String.valueOf(params.get("is_collect")))) {
-            res = articleService.collect(params);
+        if ("1".equals(String.valueOf(params.get("is_favorite")))) {
+            res = articleService.favorite(params);
         } else {
-            res = articleService.unCollect(params);
+            res = articleService.unFavorite(params);
         }
-        LOGGER.info("文章关注返回：{}", res);
+        LOGGER.info("文章收藏返回：{}", res);
         return new Result(100, res);
     }
 

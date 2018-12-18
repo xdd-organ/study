@@ -39,31 +39,31 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int star(Map<String, Object> params) {
+    public int like(Map<String, Object> params) {
         String userId = String.valueOf(params.get("user_id"));
         String articleId = String.valueOf(params.get("article_id"));
         long id = articleInfoService.insertInfo(userId, articleId);
         params.put("article_info_id", id);
-        return articleMapper.star(params);
+        return articleMapper.like(params);
     }
 
     @Override
-    public int collect(Map<String, Object> params) {
+    public int favorite(Map<String, Object> params) {
         String userId = String.valueOf(params.get("user_id"));
         String articleId = String.valueOf(params.get("article_id"));
         long id = articleInfoService.insertInfo(userId, articleId);
         params.put("article_info_id", id);
-        return articleMapper.collect(params);
+        return articleMapper.favorite(params);
     }
 
     @Override
-    public int unStar(Map<String, Object> params) {
-        return articleMapper.unStar(params);
+    public int unLike(Map<String, Object> params) {
+        return articleMapper.unLike(params);
     }
 
     @Override
-    public int unCollect(Map<String, Object> params) {
-        return articleMapper.unCollect(params);
+    public int unFavorite(Map<String, Object> params) {
+        return articleMapper.unFavorite(params);
     }
 
     @Override

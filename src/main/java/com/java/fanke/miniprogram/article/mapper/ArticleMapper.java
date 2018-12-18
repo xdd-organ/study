@@ -11,15 +11,15 @@ public interface ArticleMapper {
 
     int update(Map<String,Object> params);
 
-    int star(Map<String,Object> params);
+    int like(Map<String,Object> params);
 
-    int collect(Map<String,Object> params);
+    int favorite(Map<String,Object> params);
 
-    int unStar(Map<String,Object> params);
+    int unLike(Map<String,Object> params);
 
-    int unCollect(Map<String,Object> params);
+    int unFavorite(Map<String,Object> params);
 
     int comment(Map<String,Object> params);
 
-    int unComment(Map<String,Object> params);
+    int delComment(Map<String,Object> params);
 }

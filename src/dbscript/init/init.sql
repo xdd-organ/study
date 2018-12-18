@@ -18,13 +18,13 @@
   COMMENT '0:待审核，1：审核通过，2：审核不通过',
   comment        INT DEFAULT '0'                     NULL
   COMMENT '评论数量',
-  star        INT DEFAULT '0'                     NULL
+  `like`        INT DEFAULT '0'                     NULL
   COMMENT '点赞数',
-  collect        INT DEFAULT '0'                     NULL
+  favorite        INT DEFAULT '0'                     NULL
   COMMENT '收藏数',
-  self_star        INT DEFAULT '0'                     NULL
+  self_like        INT DEFAULT '0'                     NULL
   COMMENT '0:自己未点赞,1:自己点赞',
-  self_collect        INT DEFAULT '0'                     NULL
+  self_favorite        INT DEFAULT '0'                     NULL
   COMMENT '0:自己未收藏,1:自己收藏',
   img_urls        VARCHAR(1024)                  NULL
   COMMENT '图片url',
@@ -58,13 +58,13 @@ CREATE TABLE article_info
     PRIMARY KEY,
   article_id INT                                     NULL,
   user_id    INT                                     NULL,
-  star       INT DEFAULT '0'                         NULL
+  `like`       INT DEFAULT '0'                         NULL
   COMMENT '0:未点赞，1：点赞',
-  star_time  TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL
+  like_time  TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL
   COMMENT '点赞时间',
-  collect      INT DEFAULT '0'                         NULL
+  favorite      INT DEFAULT '0'                         NULL
   COMMENT '0：未收藏，1，收藏',
-  collect_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+  favorite_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
   COMMENT '收藏时间',
   CONSTRAINT article_info_id_uindex
   UNIQUE (id)
@@ -187,15 +187,15 @@ CREATE TABLE `fault_feedback` (
    PRIMARY KEY (`id`)
  ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='问题反馈';
 
-CREATE TABLE user_watch
+CREATE TABLE user_follow
 (
   id            INT AUTO_INCREMENT
     PRIMARY KEY,
   user_id       INT                                 NULL
   COMMENT '被关注用户id',
-  watch_user_id INT                                 NULL
+  follow_user_id INT                                 NULL
   COMMENT '关注用户id',
-  watch_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  CONSTRAINT user_watch_id_uindex
+  follow_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  CONSTRAINT user_follow_id_uindex
   UNIQUE (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户关注';
