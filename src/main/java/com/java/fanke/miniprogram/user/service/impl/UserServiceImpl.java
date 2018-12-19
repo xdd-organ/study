@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author xdd
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Object> insert(Map<String, Object> params) {
+        params.put("ticket", UUID.randomUUID().toString().replaceAll("-", ""));
         userMapper.insert(params);
         return params;
     }
