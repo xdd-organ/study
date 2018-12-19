@@ -65,16 +65,7 @@ public class UserController {
         return new Result(100, null);
     }
 
-    @RequestMapping("deposit")//押金
-    public Result deposit(@RequestBody Map<String, Object> params, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Object userId = session.getAttribute("userId");
-        logger.info("缴纳押金参数：{},userId:{}", JSONObject.toJSONString(params), userId);
-        params.put("user_id", userId);
-        return new Result(100, null);
-    }
-
-    @RequestMapping("getUserInfo")//押金
+    @RequestMapping("getUserInfo")
     public Result getUserInfo(@RequestBody Map<String, Object> params, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Object userId = session.getAttribute("userId");
@@ -106,6 +97,16 @@ public class UserController {
         params.put("user_id", userId);
         int i = userService.updateByUserId(params);
         logger.info("绑定手机返回：{}", i);
+        return new Result(100);
+    }
+
+    @RequestMapping("update")//更新用户
+    public Result update(@RequestBody Map<String, Object> params, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object userId = session.getAttribute("userId");
+        logger.info("更新用户信息参数：{},userId:{}", params, userId);
+        int i = userService.updateByUserId(params);
+        logger.info("更新用户信息返回：{}", i);
         return new Result(100);
     }
 
