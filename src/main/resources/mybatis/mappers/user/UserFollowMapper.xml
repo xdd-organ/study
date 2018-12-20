@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.fanke.miniprogram.user.mapper.UserFollowMapper">
+    <insert id="insert" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+        <selectKey keyProperty="id" resultType="java.lang.Long">
+            select last_insert_id()
+        </selectKey>
+        INSERT INTO user_follow
+        (
+        user_id,
+        follow_user_id,
+        )
+        VALUES
+        (
+        #{user_id},
+        #{follow_user_id}
+        );
+
+    </insert>
+
+    <update id="unFollow" parameterType="java.util.Map">
+        update user_follow set state = 1 where user_id = #{user_id} and follow_user_id = #{follow_user_id}
+    </update>
+
+    <select id="listByFollow" parameterType="java.util.Map" resultType="java.util.Map">
+        select a.*,b.* from user_follow a left join user b on a.user_id = b.id
+        <where>
+            and a.state = 0
+            <if test="user_id != null and user_id != ''">and a.user_id = #{user_id}</if>
+            <if test="follow_user_id != null and follow_user_id != ''">and a.follow_user_id = #{follow_user_id}</if>
+        </where>
+        order by a.follow_time desc
+    </select>
+</mapper>

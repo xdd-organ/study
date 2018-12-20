@@ -9,6 +9,7 @@ import com.java.fanke.common.vo.Result;
 import com.java.fanke.common.weixin.WeixinDecrypt;
 import com.java.fanke.miniprogram.pay.constant.PayConstant;
 import com.java.fanke.miniprogram.user.service.TransFlowInfoService;
+import com.java.fanke.miniprogram.user.service.UserFollowService;
 import com.java.fanke.miniprogram.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,8 @@ public class UserController {
     private RedisService redisService;
     @Autowired
     private HttpClientUtil httpClientUtil;
+    @Autowired
+    private UserFollowService userFollowService;
     @Value("${appid:}")
     private String appid;
     @Value("${appSecret:}")
@@ -167,6 +170,30 @@ public class UserController {
             }
         }
     }
+
+    @RequestMapping("follow")
+    public Result follow(@RequestBody Map<String, Object> params) {
+        logger.info("用户关注参数：{}", params);
+        int res = 0;
+        if ("1".equals(String.valueOf(params.get("is_follow")))) {
+            userFollowService.insert(params);
+            res = 1;
+        } else {
+            res = userFollowService.unFollow(params);
+        }
+        logger.info("用户关注返回：{}", res);
+        return new Result(100, res);
+    }
+
+    @RequestMapping("pageByFollow")
+    public Result pageByFollow(@RequestBody Map<String, Object> params) {
+        logger.info("分页查询用户关注参数：{}", params);
+        PageInfo res = userFollowService.pageByFollow(params);
+        logger.info("分页查询用户关注返回：{}", res);
+        return new Result(100, res);
+    }
+
+
 
 
 }

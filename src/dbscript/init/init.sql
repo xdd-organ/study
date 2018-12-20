@@ -191,6 +191,8 @@ CREATE TABLE user_follow
   COMMENT '被关注用户id',
   follow_user_id INT                                 NULL
   COMMENT '关注用户id',
+  state INT      DEFAULT 0                           NULL
+  COMMENT '0:有效，1：删除',
   follow_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   CONSTRAINT user_follow_id_uindex
   UNIQUE (id)
