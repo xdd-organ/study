@@ -45,6 +45,14 @@ public class ArticleController {
         return new Result(100, res);
     }
 
+    @RequestMapping("getByArticleId")
+    public Result getByArticleId(@RequestBody Map<String, Object> params, HttpSession session) {
+        LOGGER.info("根据id查询文章信息参数：{}", params);
+        Map<String, Object> res = articleService.getByArticleId(params);
+        LOGGER.info("根据id查询文章信息返回：{}", res);
+        return new Result(100, res);
+    }
+
     @RequestMapping("update")
     public Result update(@RequestBody Map<String, Object> params, HttpSession session) {
         Object userId = session.getAttribute("userId");

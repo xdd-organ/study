@@ -22,4 +22,6 @@ public interface ArticleService {
     long comment(Map<String, Object> params);
 
     int delComment(Map<String, Object> params);
+
+    Map<String,Object> getByArticleId(Map<String,Object> params);
 }

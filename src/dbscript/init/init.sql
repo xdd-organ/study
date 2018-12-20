@@ -89,7 +89,7 @@ CREATE TABLE `user` (
   COMMENT '密码',
   telphone      VARCHAR(16)                         NULL
   COMMENT '电话',
-  avatar        VARCHAR(64)                         NULL
+  avatar        VARCHAR(256)                         NULL
   COMMENT '头像',
   register_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
   COMMENT '注册时间',
@@ -111,7 +111,7 @@ CREATE TABLE `user` (
   unionId       VARCHAR(64)                         NULL,
   gender        INT                                 NULL
   COMMENT '值为1时是男性，值为2时是女性，值为0时是未知',
-  type          INT DEFAULT '3'                     NULL
+  type          INT                     NULL
   COMMENT '0:教师，1：家长，2：学生，3：头条用户'
 ) ENGINE=InnoDB AUTO_INCREMENT=100000001 DEFAULT CHARSET=utf8mb4 AVG_ROW_LENGTH=1 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户';
 

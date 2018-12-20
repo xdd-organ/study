@@ -39,6 +39,17 @@
         order by insert_time desc
     </select>
 
+    <select id="getByArticleId" parameterType="java.util.Map" resultMap="listByArticleMap">
+        SELECT 	a.*,a.insert_author ui,a.id idi,a.insert_author uii	FROM article a
+        <where>
+            and id = #{id}
+            <if test="title != null and title != ''">and a.title = #{title}</if>
+            <if test="type != null and type != ''">and a.type = #{type}</if>
+            <if test="state != null and state != ''">and a.state = #{state}</if>
+            <if test="status != null and status != ''">and a.status = #{status}</if>
+        </where>
+    </select>
+
     <resultMap id="listByArticleMap"  type="java.util.Map">
         <collection property="user" javaType="java.util.Map" column="ui" select="com.java.fanke.miniprogram.user.mapper.UserMapper.getByUserId"/>
         <collection property="articleInfo" javaType="java.util.Map" column="{user_id=uii,article_id=idi}" select="com.java.fanke.miniprogram.article.mapper.ArticleInfoMapper.getByUserIdAndArticleId"/>

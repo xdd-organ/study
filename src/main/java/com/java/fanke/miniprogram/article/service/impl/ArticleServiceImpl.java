@@ -93,4 +93,9 @@ public class ArticleServiceImpl implements ArticleService {
         articleCommentService.update(commentParams);
         return articleMapper.delComment(params);
     }
+
+    @Override
+    public Map<String, Object> getByArticleId(Map<String, Object> params) {
+        return articleMapper.getByArticleId(params);
+    }
 }

@@ -189,7 +189,6 @@ public class WeixinPayServiceImpl implements WeixinPayService{
     public Map<String, Object> getWeixinUserInfo(Map<String, Object> params) {
         Map<String, Object> user = userService.getByPrimaryKey(params);
         if (user == null) {
-            params.put("nickname", params.get(PayConstant.OPENID).toString().substring(10));
             params.put("is_disable", "0");
             return userService.insert(params);
         } else  {
