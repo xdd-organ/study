@@ -18,17 +18,10 @@ public interface UserService {
 
     Map<String, Object> getByPrimaryKey(Map<String, Object> params);
 
-    int updateMoney(String userId, Integer fee);
-
     int updateByOpenid(Map<String,Object> params);
 
     int updateByUserId(Map<String,Object> params);
 
-    int updateDeposit(String userId, Integer integer);
-
-    int updateScore(String userId, int score);
-
     PageInfo pageByUser(Map<String,Object> params);
 
-    int totalUser();
 }

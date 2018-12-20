@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.java.fanke.miniprogram.user.mapper.UserMapper">
     <insert id="insert" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
-        <!--<selectKey keyProperty="id" resultType="java.lang.Long">
+        <selectKey keyProperty="id" resultType="java.lang.Long">
             select last_insert_id()
-        </selectKey>-->
+        </selectKey>
         INSERT INTO `user`
         (
         username,
@@ -85,18 +85,6 @@
         where id = #{user_id}
     </update>
 
-    <update id="updateMoney">
-        update `user` set money = money + (#{money}) where id = #{user_id}
-    </update>
-
-    <update id="updateScore">
-        update `user` set score = score + (#{score}) where id = #{user_id}
-    </update>
-
-    <update id="updateDeposit">
-        update `user` set deposit = deposit + (#{deposit}) where id = #{user_id}
-    </update>
-
     <select id="listByUser" resultType="java.util.Map" parameterType="java.util.Map">
         select a.*,a.id ii from `user` a
         <where>
@@ -110,10 +98,6 @@
             <if test="status != null and status != ''">and a.status = #{status}</if>
             <if test="gender != null and gender != ''">and a.gender = #{gender}</if>
         </where>
-    </select>
-
-    <select id="totalUser" resultType="int">
-        select count(id) from user;
     </select>
 
 </mapper>

@@ -27,26 +27,26 @@ public class FaultFeedbackController {
     @RequestMapping("save")
     public Result save(@RequestBody Map<String, Object> params, HttpSession session) {
         params.put("user_id", session.getAttribute("userId"));
-        LOGGER.info("保存用户故障反馈，参数：{}", params);
+        LOGGER.info("保存用户反馈，参数：{}", params);
         Long insert = faultFeedbackService.insert(params);
-        LOGGER.info("保存用户故障反馈，结果：{}", insert);
+        LOGGER.info("保存用户反馈，结果：{}", insert);
         return new Result(100, insert);
     }
 
     @RequestMapping("update")
     public Result update(@RequestBody Map<String, Object> params, HttpSession session) {
         params.put("update_author", session.getAttribute("userId"));
-        LOGGER.info("更新用户故障反馈，参数：{}", params);
+        LOGGER.info("更新用户反馈，参数：{}", params);
         int insert = faultFeedbackService.update(params);
-        LOGGER.info("更新用户故障反馈，结果：{}", insert);
+        LOGGER.info("更新用户反馈，结果：{}", insert);
         return new Result(100, insert);
     }
 
     @RequestMapping("pageByFaultFeedback")
     public Result pageByFaultFeedback(@RequestBody Map<String, Object> params) {
-        LOGGER.info("分页查询用户故障反馈，参数：{}", params);
+        LOGGER.info("分页查询用户反馈，参数：{}", params);
         PageInfo<Map<String, Object>> page = faultFeedbackService.pageByFaultFeedback(params);
-        LOGGER.info("分页查询用户故障反馈，结果：{}", page);
+        LOGGER.info("分页查询用户反馈，结果：{}", page);
         return new Result(100, page);
     }
 

@@ -51,7 +51,6 @@ public class TransFlowInfoServiceImpl implements TransFlowInfoService {
         params.put("user_id", userId);
         params.put("insert_author", userId);
         params.put("update_author", userId);
-        userService.updateMoney(userId, Integer.valueOf(fee));
         logger.info("保存交易流水入库：{}", JSONObject.toJSONString(params));
         transFlowInfoMapper.insert(params);
         return Long.valueOf(params.get("id").toString());

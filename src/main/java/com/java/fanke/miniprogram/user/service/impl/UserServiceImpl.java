@@ -52,15 +52,6 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Transactional
-    @Override
-    public int updateMoney(String userId, Integer fee) {
-        logger.info("更新用户余额：userId:{}, fee:{}", userId, fee);
-        int i = userMapper.updateMoney(userId, fee);
-        logger.info("更新用户余额结果：", i);
-        return i;
-    }
-
     @Override
     public int updateByOpenid(Map<String, Object> params) {
         logger.info("根据openid更新用户参数：{}", JSONObject.toJSONString(params));
@@ -78,34 +69,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateScore(String userId, int score) {
-        logger.info("更新用户分：userId:{}, fee:{}", userId, score);
-        int i = userMapper.updateScore(userId, score);
-        logger.info("更新用户分结果：", i);
-        return i;
-    }
-
-    @Override
-    public int updateDeposit(String userId, Integer fee) {
-        logger.info("更新用户押金：userId:{}, fee:{}", userId, fee);
-        int i = userMapper.updateDeposit(userId, fee);
-        logger.info("更新用户押金结果：", i);
-        return i;
-    }
-
-    @Override
     public PageInfo pageByUser(Map<String, Object> params) {
         logger.info("分页查询用户参数：{}", params);
         PageHelper.startPage(Integer.valueOf(params.get("pageNum").toString()), Integer.valueOf(params.get("pageSize").toString()));
         PageInfo pageInfo = new PageInfo(userMapper.listByUser(params));
         logger.info("分页查询用户返回：{}", pageInfo);
         return pageInfo;
-    }
-
-    @Override
-    public int totalUser() {
-        int res = userMapper.totalUser();
-        logger.info("查询总用户返回：{}", res);
-        return res;
     }
 }

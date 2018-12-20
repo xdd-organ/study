@@ -56,15 +56,6 @@ public class UserController {
         return new Result(100, pageInfo);
     }
 
-    @RequestMapping("recharge")//充值
-    public Result recharge(@RequestBody Map<String, Object> params, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Object userId = session.getAttribute("userId");
-        logger.info("充值参数：{},userId:{}", JSONObject.toJSONString(params), userId);
-        params.put("user_id", userId);
-        return new Result(100, null);
-    }
-
     @RequestMapping("getUserInfo")
     public Result getUserInfo(@RequestBody Map<String, Object> params, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -78,7 +69,7 @@ public class UserController {
 
     @RequestMapping("getUserByUserId")//
     public Result getUserByUserId(@RequestBody Map<String, Object> params) {
-        logger.info("获取用户信息参数：{},userId:{}", JSONObject.toJSONString(params));
+        logger.info("获取用户信息参数：{}", JSONObject.toJSONString(params));
         Object userId = params.get("user_id");
         Map<String, Object> user = userService.getByUserId(userId.toString());
         logger.info("获取用户信息返回：{}", JSONObject.toJSONString(user));
@@ -149,19 +140,6 @@ public class UserController {
             logger.error("异常：" + e.getMessage(), e);
         }
         return new Result(500);
-    }
-
-    @RequestMapping("updateMoney")
-    public Result updateMoney(@RequestBody Map<String, Object> params, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String userId = session.getAttribute("userId").toString();
-        String money = params.get("money").toString();
-        Long i = transFlowInfoService.insert(null, money, "0", "", "0", userId);
-        if (i != null) {
-            return new Result(100);
-        } else {
-            return new Result(500);
-        }
     }
 
     @RequestMapping("pageByUser")

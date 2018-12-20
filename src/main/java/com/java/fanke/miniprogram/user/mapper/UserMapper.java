@@ -23,14 +23,6 @@ public interface UserMapper {
 
     int updateByUserId(Map<String,Object> params);
 
-    int updateMoney(@Param("user_id") String userId, @Param("money") Integer money);
-
-    int updateScore(@Param("user_id") String userId, @Param("score") Integer score);
-
-    int updateDeposit(@Param("user_id") String userId, @Param("deposit") Integer deposit);
-
     List<Map<String,Object>> listByUser(Map<String,Object> params);
-
-    int totalUser();
 
 }

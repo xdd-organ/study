@@ -49,8 +49,8 @@ public class WeixinPayServiceImpl implements WeixinPayService{
 
     private final static String prepayUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder";
     private final static String queryUrl = "https://api.mch.weixin.qq.com/pay/orderquery";
-    private final static String payNotifyUrl = "https://www.chmbkh.com/mobile/pay/wx/payNotify";
-    public final static String payAndUnLockNotifyUrl = "https://www.chmbkh.com/mobile/pay/wx/payAndUnLockNotifyUrl";
+    private final static String payNotifyUrl = "https://www/pay/wx/payNotify";
+    public final static String payAndUnLockNotifyUrl = "https://www..../pay/wx/payAndUnLockNotifyUrl";
     private final static String SUCCESS = "SUCCESS";
 
     @Value("${appid:}")
@@ -242,14 +242,6 @@ public class WeixinPayServiceImpl implements WeixinPayService{
             flowPrams.put("update_time", userId);
             logger.info("插入充值流水参数：{}", JSONObject.toJSONString(flowPrams));
             transFlowInfoMapper.insert(flowPrams);
-
-            //更新用户余额/押金
-            logger.info("更新余额/押金参数：userId:{}，totalFee:{},type:{}", userId, totalFee,type);
-            if ("4".equals(type)) {
-                userService.updateMoney(userId, Integer.valueOf(totalFee));
-            } else if ("2".equals(type)) {
-                userService.updateDeposit(userId, Integer.valueOf(totalFee));
-            }
         } catch (Exception e) {
             logger.error("异常：" + e.getMessage(), e);
         }

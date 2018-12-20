@@ -6,6 +6,8 @@ import com.java.fanke.miniprogram.article.mapper.ArticleMapper;
 import com.java.fanke.miniprogram.article.service.ArticleCommentService;
 import com.java.fanke.miniprogram.article.service.ArticleInfoService;
 import com.java.fanke.miniprogram.article.service.ArticleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import java.util.Map;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ArticleServiceImpl.class);
 
     @Autowired
     private ArticleMapper articleMapper;
