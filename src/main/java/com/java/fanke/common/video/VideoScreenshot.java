@@ -1,8 +1,8 @@
 package com.java.fanke.common.video;
 
-import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.Java2DFrameConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ public class VideoScreenshot {
      * @param frameFile  截取帧的图片存放路径
      * @throws Exception
      */
-    public static void fetchFrame(String videoFile, String frameFile) {
+    /*public static void fetchFrame(String videoFile, String frameFile) {
         try {
             long start = System.currentTimeMillis();
             File targetFile = new File(frameFile);
@@ -55,5 +55,44 @@ public class VideoScreenshot {
             LOGGER.error("保存视频封面图片报错", e);
         }
 
+    }*/
+
+    public static void fetchFrame(String videofile, String framefile) {
+          try {
+
+
+              long start = System.currentTimeMillis();
+              File targetFile = new File(framefile);
+              FFmpegFrameGrabber ff = new FFmpegFrameGrabber(videofile);
+              ff.start();
+              int lenght = ff.getLengthInFrames();
+              int i = 0;
+              Frame f = null;
+              while (i < lenght) {
+                  // 过滤前5帧，避免出现全黑的图片，依自己情况而定
+                  f = ff.grabFrame();
+                  if ((i > 48) && (f.image != null)) {
+                      break;
+                  }
+                  i++;
+              }
+                //IplImage img = f.image;
+              int owidth = f.imageWidth;
+              int oheight = f.imageHeight;
+              // 对截取的帧进行等比例缩放
+              int width = owidth;
+//              int height = (int) (((double) width / owidth) * oheight);
+              int height = oheight;
+              Java2DFrameConverter converter = new Java2DFrameConverter();
+              BufferedImage fecthedImage = converter.getBufferedImage(f);
+              BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+              bi.getGraphics().drawImage(fecthedImage.getScaledInstance(width, height, Image.SCALE_SMOOTH),
+                      0, 0, null);
+              ImageIO.write(bi, "jpg", targetFile);
+              ff.stop();
+              LOGGER.info("耗時：{}", System.currentTimeMillis() - start);
+          } catch (Exception e) {
+              LOGGER.error("保存视频封面图片报错", e);
+          }
     }
 }
