@@ -3,11 +3,13 @@ package com.java.fanke.common.service.impl;
 import com.java.fanke.common.mapper.FileMapper;
 import com.java.fanke.common.service.FileService;
 import com.java.fanke.common.utils.*;
+import com.java.fanke.common.video.VideoScreenshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -78,5 +80,46 @@ public class FileServiceImpl implements FileService {
         file.put("filePath", filePath);
         logger.info("下载文件返回：{}", file);
         return file;
+    }
+
+    @Override
+    public List<Map<String, Object>> uploadVideo(MultipartFile[] files) {
+        List<Map<String, Object>> params = null;
+        try {
+            params = new ArrayList<>();
+            for (MultipartFile file : files) {
+                String fileName = file.getOriginalFilename();
+                long size = file.getSize()/1000; //KB
+                String suffix = fileName.substring(fileName.lastIndexOf("."));
+                String filePath = classPath + imgPath + File.separator + DateUtil.getDateyyyyMMdd();
+                File saveFile = new File(filePath);
+                if (!saveFile.exists()) saveFile.mkdirs();
+                String date = DateUtil.getDateyyyyMMddHHmmssSSSS() + suffix;
+                filePath = filePath + File.separator + date;
+                FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(filePath));
+
+                //保存封面图片
+                String coverName = SerialNumber.generateRandomSerial(15) + ".jpg";
+                String coverPath = classPath + imgPath + File.separator + DateUtil.getDateyyyyMMdd()+ File.separator + coverName;
+                VideoScreenshot.fetchFrame(filePath, coverPath);
+
+                Map<String, Object> param = new HashMap<>();
+                String imgBasePath = DateUtil.getDateyyyyMMdd()+ File.separator + date;
+                param.put("name", imgBasePath);
+                param.put("file_name", fileName);
+                param.put("size", size);
+                param.put("url", imgBaseUrl + imgPath + File.separator + imgBasePath);
+                param.put("key", SerialNumber.getRandomNum());
+                param.put("cover_url", imgBaseUrl + imgPath + File.separator + DateUtil.getDateyyyyMMdd()+ File.separator + coverName);
+                params.add(param);
+            }
+            logger.info("上传文件入库参数：{}", params);
+            int ret = fileMapper.upload(params);
+            logger.info(ret +"");
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+        logger.info("上传文件返回：{}", params);
+        return params;
     }
 }
