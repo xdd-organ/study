@@ -13,8 +13,8 @@
         )
         VALUES
         (
-        'article_id',
-        'user_id'
+        #{article_id},
+        #{user_id}
         );
 
     </insert>
