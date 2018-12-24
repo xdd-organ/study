@@ -25,4 +25,6 @@ public interface UserMapper {
 
     List<Map<String,Object>> listByUser(Map<String,Object> params);
 
+    int updateUserScore(@Param("user_id") Object userId, @Param("score") Object score);
+
 }

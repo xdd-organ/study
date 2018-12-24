@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -193,7 +194,28 @@ public class UserController {
         return new Result(100, res);
     }
 
+    @RequestMapping("signIn")
+    public Result signIn(@RequestBody Map<String, Object> params) {
+        logger.info("用户签到参数：{}", params);
+        long res = userService.signIn(params);
+        logger.info("用户签到返回：{}", res);
+        return new Result(100, res);
+    }
 
+    @RequestMapping("listByUserSignIn")
+    public Result getSignInByDate(@RequestBody Map<String, Object> params) {
+        logger.info("查询用户签到信息参数：{}", params);
+        List<Map<String, Object>> res = userService.listByUserSignIn(params);
+        logger.info("查询用户签到信息返回：{}", res);
+        return new Result(100, res);
+    }
 
+    @RequestMapping("pageBySignIn")
+    public Result pageBySignIn(@RequestBody Map<String, Object> params) {
+        logger.info("分页查询用户签到信息参数：{}", params);
+        PageInfo res = userService.pageBySignIn(params);
+        logger.info("分页查询用户签到信息返回：{}", res);
+        return new Result(100, res);
+    }
 
 }

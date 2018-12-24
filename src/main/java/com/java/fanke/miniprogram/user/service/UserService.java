@@ -2,6 +2,7 @@ package com.java.fanke.miniprogram.user.service;
 
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,4 +25,9 @@ public interface UserService {
 
     PageInfo pageByUser(Map<String,Object> params);
 
+    long signIn(Map<String,Object> params);
+
+    List<Map<String, Object>> listByUserSignIn(Map<String,Object> params);
+
+    PageInfo pageBySignIn(Map<String,Object> params);
 }

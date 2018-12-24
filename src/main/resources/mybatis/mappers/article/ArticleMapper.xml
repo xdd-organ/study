@@ -14,6 +14,7 @@
         insert_author,
         img_urls,
         cover_urls,
+        article_type,
         update_author
         )
         VALUES
@@ -24,12 +25,13 @@
         #{user_id},
         #{img_urls},
         #{cover_urls},
+        #{article_type},
         #{user_id}
         );
     </insert>
 
     <select id="listByArticle" parameterType="java.util.Map" resultMap="listByArticleMap">
-        SELECT 	a.*,a.insert_author ui,a.id idi,a.insert_author uii	FROM article a
+        SELECT 	a.*,a.insert_author ui,a.id idi,a.insert_author uii,a.insert_author uiii,0 as ss	FROM article a
         <where>
             <if test="title != null and title != ''">and a.title = #{title}</if>
             <if test="type != null and type != ''">and a.type = #{type}</if>
@@ -40,7 +42,7 @@
     </select>
 
     <select id="getByArticleId" parameterType="java.util.Map" resultMap="listByArticleMap">
-        SELECT 	a.*,a.insert_author ui,a.id idi,a.insert_author uii	FROM article a
+        SELECT 	a.*,a.insert_author ui,a.id idi,a.insert_author uii,a.insert_author uiii,0 as ss FROM article a
         <where>
             and id = #{id}
             <if test="title != null and title != ''">and a.title = #{title}</if>
@@ -53,6 +55,7 @@
     <resultMap id="listByArticleMap"  type="java.util.Map">
         <collection property="user" javaType="java.util.Map" column="ui" select="com.java.fanke.miniprogram.user.mapper.UserMapper.getByUserId"/>
         <collection property="articleInfo" javaType="java.util.Map" column="{user_id=uii,article_id=idi}" select="com.java.fanke.miniprogram.article.mapper.ArticleInfoMapper.getByUserIdAndArticleId"/>
+        <collection property="articleComment" javaType="java.util.List" column="{user_id=uiii,state=ss}" select="com.java.fanke.miniprogram.article.mapper.ArticleCommentMapper.listByArticleComment"/>
     </resultMap>
 
     <update id="update" parameterType="java.util.Map">

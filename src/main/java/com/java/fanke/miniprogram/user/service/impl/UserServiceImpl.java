@@ -4,13 +4,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.java.fanke.miniprogram.user.mapper.UserMapper;
+import com.java.fanke.miniprogram.user.mapper.UserSignInMapper;
 import com.java.fanke.miniprogram.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -25,6 +28,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserSignInMapper userSignInMapper;
 
     @Override
     public Map<String, Object> insert(Map<String, Object> params) {
@@ -75,5 +80,23 @@ public class UserServiceImpl implements UserService {
         PageInfo pageInfo = new PageInfo(userMapper.listByUser(params));
         logger.info("分页查询用户返回：{}", pageInfo);
         return pageInfo;
+    }
+
+    @Override
+    public long signIn(Map<String, Object> params) {
+        userMapper.updateUserScore(params.get("user_id"), 1);
+        int insert = userSignInMapper.insert(params);
+        return Long.valueOf(params.get("id").toString());
+    }
+
+    @Override
+    public List<Map<String, Object>> listByUserSignIn(Map<String, Object> params) {
+        return userSignInMapper.listByUserSignIn(params);
+    }
+
+    @Override
+    public PageInfo pageBySignIn(Map<String, Object> params) {
+        PageHelper.startPage(Integer.valueOf(params.get("pageNum").toString()), Integer.valueOf(params.get("pageSize").toString()));
+        return new PageInfo(userSignInMapper.listByUserSignIn(params));
     }
 }

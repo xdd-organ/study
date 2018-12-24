@@ -104,4 +104,8 @@
         </where>
     </select>
 
+    <update id="updateUserScore">
+        update `user` set score = score + (#{score}) where id = #{user_id}
+    </update>
+
 </mapper>
