@@ -37,6 +37,8 @@
             <if test="type != null and type != ''">and a.type = #{type}</if>
             <if test="state != null and state != ''">and a.state = #{state}</if>
             <if test="status != null and status != ''">and a.status = #{status}</if>
+            <if test="insert_author != null and insert_author != ''">and a.insert_author = #{insert_author}</if>
+            <if test="insert_authors != null and insert_authors != ''">and find_in_set(a.insert_author, #{insert_authors})</if>
         </where>
         order by insert_time desc
     </select>
