@@ -23,4 +23,6 @@ public interface FileService {
      * @return
      */
     Map<String, Object> download(String key);
+
+    List<Map<String,Object>> uploadVideo(MultipartFile[] files);
 }

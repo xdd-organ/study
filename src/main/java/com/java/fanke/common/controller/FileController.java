@@ -40,6 +40,16 @@ public class FileController {
         return new Result(100, rsp);
     }
 
+    /**
+     * 上传视频，并返回封面图
+     * @return
+     */
+    @RequestMapping(value = "/uploadVideo")
+    public Result uploadVideo(@RequestParam("file") MultipartFile[] files, HttpServletRequest request) {
+        List<Map<String, Object>> rsp = fileService.uploadVideo(files);
+        return new Result(100, rsp);
+    }
+
 
     /**
      * 单文件下载
