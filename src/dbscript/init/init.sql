@@ -197,3 +197,33 @@ CREATE TABLE user_follow
   CONSTRAINT user_follow_id_uindex
   UNIQUE (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户关注';
+
+CREATE TABLE user_sign_in
+(
+  id            INT AUTO_INCREMENT
+    PRIMARY KEY,
+  user_id       INT                                 NULL
+  COMMENT '签到用户id',
+  sign_in_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  CONSTRAINT user_sign_in_id_uindex
+  UNIQUE (id)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户签到';
+
+CREATE TABLE user_score_flow
+(
+  id            INT AUTO_INCREMENT
+    PRIMARY KEY,
+  user_id       INT                                 NULL
+  COMMENT '用户id',
+  score       INT                                 NULL
+  COMMENT '分数',
+  state       INT      DEFAULT 0            NULL
+  COMMENT '0：有效，1：删除',
+  insert_author       INT                                 NULL
+  COMMENT '插入人',
+  insert_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  CONSTRAINT user_sign_in_id_uindex
+  UNIQUE (id)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户积分流水';
+
+
