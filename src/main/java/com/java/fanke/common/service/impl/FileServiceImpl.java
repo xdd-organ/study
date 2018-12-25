@@ -101,7 +101,7 @@ public class FileServiceImpl implements FileService {
                 //保存封面图片
                 String coverName = SerialNumber.generateRandomSerial(15) + ".jpg";
                 String coverPath = classPath + imgPath + File.separator + DateUtil.getDateyyyyMMdd()+ File.separator + coverName;
-                VideoScreenshot.fetchFrame(filePath, coverPath);
+                VideoScreenshot.fetchFrame(file.getInputStream(), coverPath);
 
                 Map<String, Object> param = new HashMap<>();
                 String imgBasePath = DateUtil.getDateyyyyMMdd()+ File.separator + date;

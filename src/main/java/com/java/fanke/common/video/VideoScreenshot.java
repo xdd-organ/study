@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 
 public class VideoScreenshot {
 
@@ -57,7 +58,7 @@ public class VideoScreenshot {
 
     }*/
 
-    public static void fetchFrame(String videofile, String framefile) {
+    public static void fetchFrame(InputStream videofile, String framefile) {
           try {
 
 
@@ -68,6 +69,7 @@ public class VideoScreenshot {
               int lenght = ff.getLengthInFrames();
               int i = 0;
               Frame f = null;
+              LOGGER.info("一共{}帧", lenght);
               while (i < lenght) {
                   // 过滤前5帧，避免出现全黑的图片，依自己情况而定
                   f = ff.grabFrame();
@@ -77,8 +79,11 @@ public class VideoScreenshot {
                   i++;
               }
                 //IplImage img = f.image;
-              int owidth = f.imageWidth;
-              int oheight = f.imageHeight;
+//              int owidth = f.imageWidth;
+//              int oheight = f.imageHeight;
+              int owidth = ff.getImageWidth();
+              int oheight = ff.getImageHeight();
+              LOGGER.info("封面宽：{}，高：{}", owidth, oheight);
               // 对截取的帧进行等比例缩放
               int width = owidth;
 //              int height = (int) (((double) width / owidth) * oheight);

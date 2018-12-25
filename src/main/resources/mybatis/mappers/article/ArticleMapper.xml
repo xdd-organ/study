@@ -15,6 +15,7 @@
         img_urls,
         cover_urls,
         article_type,
+        category,
         update_author
         )
         VALUES
@@ -26,15 +27,17 @@
         #{img_urls},
         #{cover_urls},
         #{article_type},
+        #{category},
         #{user_id}
         );
     </insert>
 
     <select id="listByArticle" parameterType="java.util.Map" resultMap="listByArticleMap">
-        SELECT 	a.*,a.insert_author ui,a.id idi,a.insert_author uii,a.id uiii,'0' as ss	FROM article a
+        SELECT 	a.*,a.insert_author ui,a.id idi,#{login_user_id} uii,a.id uiii,'0' as ss	FROM article a
         <where>
             <if test="title != null and title != ''">and a.title = #{title}</if>
             <if test="type != null and type != ''">and a.type = #{type}</if>
+            <if test="category != null and category != ''">and a.category = #{category}</if>
             <if test="state != null and state != ''">and a.state = #{state}</if>
             <if test="status != null and status != ''">and a.status = #{status}</if>
             <if test="insert_author != null and insert_author != ''">and a.insert_author = #{insert_author}</if>
@@ -44,7 +47,7 @@
     </select>
 
     <select id="getByArticleId" parameterType="java.util.Map" resultMap="listByArticleMap">
-        SELECT 	a.*,a.insert_author ui,a.id idi,a.insert_author uii,a.id uiii,'0' as ss FROM article a
+        SELECT 	a.*,a.insert_author ui,a.id idi,#{login_user_id} uii,a.id uiii,'0' as ss FROM article a
         <where>
             and id = #{id}
             <if test="title != null and title != ''">and a.title = #{title}</if>
@@ -55,10 +58,18 @@
     </select>
 
     <resultMap id="listByArticleMap"  type="java.util.Map">
-        <collection property="user" javaType="java.util.Map" column="ui" select="com.java.fanke.miniprogram.user.mapper.UserMapper.getByUserId"/>
-        <collection property="articleInfo" javaType="java.util.Map" column="{user_id=uii,article_id=idi}" select="com.java.fanke.miniprogram.article.mapper.ArticleInfoMapper.getByUserIdAndArticleId"/>
+        <collection property="user" javaType="java.util.Map" column="ui" select="getByUserId"/>
+        <collection property="articleInfo" javaType="java.util.Map" column="{user_id=uii,article_id=idi}" select="getByUserIdAndArticleId"/>
         <collection property="articleComment" javaType="java.util.List" column="{article_id=uiii,state=ss}" select="listByArticleComment"/>
     </resultMap>
+
+    <select id="getByUserId" parameterType="java.lang.String" resultType="java.util.Map">
+        select a.*,a.id ui from `user` a where a.id = #{user_id}
+    </select>
+
+    <select id="getByUserIdAndArticleId" resultType="java.util.Map">
+      SELECT a.* FROM article_info a where a.user_id = #{user_id} and a.article_id = #{article_id}
+    </select>
 
     <select id="listByArticleComment" parameterType="java.util.Map" resultType="java.util.Map">
         SELECT a.*, a.user_id ui

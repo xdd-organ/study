@@ -11,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -36,7 +38,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public PageInfo pageByArticle(Map<String, Object> params) {
         PageHelper.startPage(Integer.valueOf(params.get("pageNum").toString()), Integer.valueOf(params.get("pageSize").toString()));
-        return new PageInfo(articleMapper.listByArticle(params));
+        PageInfo pageInfo = new PageInfo(articleMapper.listByArticle(params));
+        List<Map<String, Object>> list = pageInfo.getList();
+        if (!CollectionUtils.isEmpty(list)) {
+            for (Map<String, Object> stringObjectMap : list) {
+                stringObjectMap.put("articleInfo", articleInfoService.getByUserIdAndArticleId(params.get("login_user_id").toString(), stringObjectMap.get("id").toString()));
+            }
+        }
+        return pageInfo;
     }
 
     @Transactional
