@@ -20,7 +20,7 @@
     </insert>
 
     <select id="getByUserIdAndArticleId" resultType="java.util.Map">
-      SELECT a.* FROM article_info a where a.user_id = #{user_id} and a.article_id = #{article_id}
+      SELECT a.*,b.avatar,b.nickname FROM article_info a left JOIN user b on a.user_id = b.id where a.user_id = #{user_id} and a.article_id = #{article_id}
     </select>
 
 
