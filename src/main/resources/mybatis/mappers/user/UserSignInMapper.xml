@@ -18,9 +18,9 @@
     <select id="listByUserSignIn" parameterType="java.util.Map" resultType="java.util.Map">
         select * from `user_sign_in`
         <where>
-            <if test="user_id != null user_id != ''">and user_id = #{user_id}</if>
-            <if test="day_date != null day_date != ''">and to_days(sign_in_time) = to_days(#{day_date})</if>
-            <if test="month_date != null month_date != ''">and DATE_FORMAT(sign_in_time,'%Y%m') = DATE_FORMAT(#{month_date},'%Y%m')</if>
+            <if test="user_id != null and user_id != ''">and user_id = #{user_id}</if>
+            <if test="day_date != null and day_date != ''">and to_days(sign_in_time) = to_days(#{day_date})</if>
+            <if test="month_date != null and month_date != ''">and DATE_FORMAT(sign_in_time,'%Y%m') = DATE_FORMAT(#{month_date},'%Y%m')</if>
         </where>
     </select>
 
