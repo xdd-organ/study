@@ -37,6 +37,7 @@
         <where>
             <if test="title != null and title != ''">and a.title = #{title}</if>
             <if test="type != null and type != ''">and a.type = #{type}</if>
+            <if test="article_type != null and article_type != ''">and a.article_type = #{article_type}</if>
             <if test="category != null and category != ''">and a.category = #{category}</if>
             <if test="state != null and state != ''">and a.state = #{state}</if>
             <if test="status != null and status != ''">and a.status = #{status}</if>
