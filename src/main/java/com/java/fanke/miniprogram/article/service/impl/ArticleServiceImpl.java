@@ -93,7 +93,7 @@ public class ArticleServiceImpl implements ArticleService {
     public long comment(Map<String, Object> params) {
         long res = articleCommentService.insert(params);
         articleMapper.comment(params);
-        return res;
+        return Long.valueOf(params.get("id").toString());
     }
 
     @Transactional
