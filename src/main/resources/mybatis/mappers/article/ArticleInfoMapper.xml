@@ -23,6 +23,15 @@
       SELECT a.*,b.avatar,b.nickname FROM article_info a left JOIN user b on a.user_id = b.id where a.user_id = #{user_id} and a.article_id = #{article_id}
     </select>
 
+    <select id="listArticleInfoByParams" resultType="java.util.Map">
+        SELECT a.*,b.avatar,b.nickname FROM article_info a left JOIN user b on a.user_id = b.id
+        <where>
+            <if test="article_id != null and article_id != ''">and a.article_id = #{article_id}</if>
+            <if test="like != null and like != ''">and a.like > 0</if>
+            <if test="favorite != null and favorite != ''">and a.favorite > 0</if>
+        </where>
+    </select>
+
 
 
 </mapper>

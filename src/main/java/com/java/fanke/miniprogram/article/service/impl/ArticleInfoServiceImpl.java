@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -44,5 +45,10 @@ public class ArticleInfoServiceImpl implements ArticleInfoService {
         } else {
             return Long.valueOf(info.get("id").toString());
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> listArticleInfoByParams(Object articleId, Object like, Object favorite) {
+        return articleInfoMapper.listArticleInfoByParams(articleId, like, favorite);
     }
 }
