@@ -1,9 +1,11 @@
 package com.java.fanke.miniprogram.article.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.java.fanke.common.vo.Result;
 import com.java.fanke.miniprogram.article.service.ArticleCommentService;
 import com.java.fanke.miniprogram.article.service.ArticleService;
+import com.vdurmont.emoji.EmojiParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,10 @@ public class ArticleController {
         Object userId = session.getAttribute("userId");
         params.put("user_id", userId);
         LOGGER.info("保存文章信息参数：{}", params);
-        long res = articleService.insert(params);
+        String s = JSONObject.toJSONString(params);
+        String s1 = EmojiParser.parseToAliases(s);
+        Map<String, Object> map = JSONObject.parseObject(s1, Map.class);
+        long res = articleService.insert(map);
         LOGGER.info("保存文章信息返回：{}", res);
         return new Result(100, res);
     }
@@ -41,16 +46,20 @@ public class ArticleController {
     public Result pageByArticle(@RequestBody Map<String, Object> params, HttpSession session) {
         LOGGER.info("分页查询文章信息参数：{}", params);
         PageInfo res = articleService.pageByArticle(params);
-        LOGGER.info("分页查询文章信息返回：{}", res);
-        return new Result(100, res);
+        String s = JSONObject.toJSONString(res);
+        String s1 = EmojiParser.parseToUnicode(s);
+        LOGGER.info("分页查询文章信息返回：{}", s1);
+        return new Result(100, s1);
     }
 
     @RequestMapping("getByArticleId")
     public Result getByArticleId(@RequestBody Map<String, Object> params, HttpSession session) {
         LOGGER.info("根据id查询文章信息参数：{}", params);
         Map<String, Object> res = articleService.getByArticleId(params);
+        String s = JSONObject.toJSONString(res);
+        String s1 = EmojiParser.parseToUnicode(s);
         LOGGER.info("根据id查询文章信息返回：{}", res);
-        return new Result(100, res);
+        return new Result(100, s1);
     }
 
     @RequestMapping("update")
@@ -98,7 +107,10 @@ public class ArticleController {
         Object userId = session.getAttribute("userId");
         params.put("user_id", userId);
         LOGGER.info("文章评论参数：{}", params);
-        long res = articleService.comment(params);
+        String s = JSONObject.toJSONString(params);
+        String s1 = EmojiParser.parseToAliases(s);
+        Map<String, Object> map = JSONObject.parseObject(s1, Map.class);
+        long res = articleService.comment(map);
         LOGGER.info("文章评论返回：{}", res);
         return new Result(100, res);
     }
@@ -119,8 +131,10 @@ public class ArticleController {
         params.put("user_id", userId);
         LOGGER.info("分页查询文章评论参数：{}", params);
         PageInfo res = articleCommentService.pageByArticleComment(params);
+        String s = JSONObject.toJSONString(res);
+        String s1 = EmojiParser.parseToUnicode(s);
         LOGGER.info("分页查询文章评论返回：{}", res);
-        return new Result(100, res);
+        return new Result(100, s1);
     }
 
 }
