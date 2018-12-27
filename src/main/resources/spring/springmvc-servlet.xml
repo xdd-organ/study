@@ -42,7 +42,7 @@
 	<mvc:annotation-driven>
 		<mvc:async-support default-timeout="10000"/>
 		<!-- 处理responseBody 里面日期类型 -->
-		<mvc:message-converters>
+		<!--<mvc:message-converters>
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="objectMapper">
 					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
@@ -54,7 +54,7 @@
 					</bean>
 				</property>
 			</bean>
-		</mvc:message-converters>
+		</mvc:message-converters>-->
 	</mvc:annotation-driven>
 
 	<!-- 开启aop，对类代理 -->

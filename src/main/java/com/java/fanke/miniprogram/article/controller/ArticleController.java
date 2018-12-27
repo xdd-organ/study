@@ -49,7 +49,7 @@ public class ArticleController {
         String s = JSONObject.toJSONString(res);
         String s1 = EmojiParser.parseToUnicode(s);
         LOGGER.info("分页查询文章信息返回：{}", s1);
-        return new Result(100, s1);
+        return new Result(100, JSONObject.parseObject(s1, Map.class));
     }
 
     @RequestMapping("getByArticleId")
@@ -59,7 +59,7 @@ public class ArticleController {
         String s = JSONObject.toJSONString(res);
         String s1 = EmojiParser.parseToUnicode(s);
         LOGGER.info("根据id查询文章信息返回：{}", res);
-        return new Result(100, s1);
+        return new Result(100, JSONObject.parseObject(s1, Map.class));
     }
 
     @RequestMapping("update")
@@ -117,8 +117,6 @@ public class ArticleController {
 
     @RequestMapping("delComment")
     public Result delComment(@RequestBody Map<String, Object> params, HttpSession session) {
-        Object userId = session.getAttribute("userId");
-        params.put("user_id", userId);
         LOGGER.info("文章删除评论参数：{}", params);
         int res = articleService.delComment(params);
         LOGGER.info("文章删除评论返回：{}", res);
@@ -127,14 +125,12 @@ public class ArticleController {
 
     @RequestMapping("pageByArticleComment")
     public Result pageByComment(@RequestBody Map<String, Object> params, HttpSession session) {
-        Object userId = session.getAttribute("userId");
-        params.put("user_id", userId);
         LOGGER.info("分页查询文章评论参数：{}", params);
         PageInfo res = articleCommentService.pageByArticleComment(params);
         String s = JSONObject.toJSONString(res);
         String s1 = EmojiParser.parseToUnicode(s);
         LOGGER.info("分页查询文章评论返回：{}", res);
-        return new Result(100, s1);
+        return new Result(100, JSONObject.parseObject(s1, Map.class));
     }
 
 }
