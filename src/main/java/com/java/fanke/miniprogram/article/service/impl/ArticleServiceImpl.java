@@ -43,6 +43,8 @@ public class ArticleServiceImpl implements ArticleService {
         if (!CollectionUtils.isEmpty(list)) {
             for (Map<String, Object> stringObjectMap : list) {
                 stringObjectMap.put("articleInfo", articleInfoService.getByUserIdAndArticleId(params.get("login_user_id").toString(), stringObjectMap.get("id").toString()));
+                stringObjectMap.put("articleLike", articleInfoService.listArticleInfoByParams(stringObjectMap.get("id"), "1", null));
+                stringObjectMap.put("articleFavorite", articleInfoService.listArticleInfoByParams(stringObjectMap.get("id"), null, "1"));
             }
         }
         return pageInfo;
@@ -89,8 +91,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     @Override
     public long comment(Map<String, Object> params) {
-        articleCommentService.insert(params);
-        return articleMapper.comment(params);
+        long res = articleCommentService.insert(params);
+        articleMapper.comment(params);
+        return Long.valueOf(params.get("id").toString());
     }
 
     @Transactional

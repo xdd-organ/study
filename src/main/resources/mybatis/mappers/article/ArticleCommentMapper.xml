@@ -34,9 +34,9 @@
     </update>
 
     <select id="listByArticleComment" parameterType="java.util.Map" resultMap="listByArticleCommentMap">
-    SELECT a.*, a.user_id ui
+    SELECT a.*, a.user_id ui,b.nickname,b.avatar
         FROM
-        article_comment a
+        article_comment a left join user b on a.user_id = b.id
         <where>
             <if test="state != null and state != ''">and a.state = #{state}</if>
             <if test="article_id != null and article_id != ''">and a.article_id = #{article_id}</if>
