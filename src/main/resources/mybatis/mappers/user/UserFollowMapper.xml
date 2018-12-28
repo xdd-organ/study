@@ -8,7 +8,7 @@
         INSERT INTO user_follow
         (
         user_id,
-        follow_user_id,
+        follow_user_id
         )
         VALUES
         (

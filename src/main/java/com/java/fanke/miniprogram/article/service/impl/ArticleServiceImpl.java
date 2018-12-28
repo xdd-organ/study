@@ -110,4 +110,19 @@ public class ArticleServiceImpl implements ArticleService {
     public Map<String, Object> getByArticleId(Map<String, Object> params) {
         return articleMapper.getByArticleId(params);
     }
+
+    @Override
+    public PageInfo pageByArticleInLike(Map<String, Object> params) {
+        PageHelper.startPage(Integer.valueOf(params.get("pageNum").toString()), Integer.valueOf(params.get("pageSize").toString()));
+        PageInfo pageInfo = new PageInfo(articleMapper.listByArticleInLike(params));
+        List<Map<String, Object>> list = pageInfo.getList();
+       /* if (!CollectionUtils.isEmpty(list)) {
+            for (Map<String, Object> stringObjectMap : list) {
+                stringObjectMap.put("articleInfo", articleInfoService.getByUserIdAndArticleId(params.get("login_user_id").toString(), stringObjectMap.get("id").toString()));
+                stringObjectMap.put("articleLike", articleInfoService.listArticleInfoByParams(stringObjectMap.get("id"), "1", null));
+                stringObjectMap.put("articleFavorite", articleInfoService.listArticleInfoByParams(stringObjectMap.get("id"), null, "1"));
+            }
+        }*/
+        return pageInfo;
+    }
 }

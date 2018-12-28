@@ -129,5 +129,24 @@
         update `article` set comment = comment - 1 where id = #{article_id};
     </update>
 
+    <select id="listByArticleInLike" parameterType="java.util.Map" resultMap="listByArticleMap">
+        SELECT 	a.*,a.insert_author ui,a.id idi,#{login_user_id} uii,a.id uiii,'0' as ss from article_info b left join article a on a.id = b.article_id
+        <where>
+            <if test="title != null and title != ''">and a.title = #{title}</if>
+            <if test="type != null and type != ''">and a.type = #{type}</if>
+            <if test="article_type != null and article_type != ''">and a.article_type = #{article_type}</if>
+            <if test="category != null and category != ''">and a.category = #{category}</if>
+            <if test="state != null and state != ''">and a.state = #{state}</if>
+            <if test="status != null and status != ''">and a.status = #{status}</if>
+            <if test="insert_author != null and insert_author != ''">and a.insert_author = #{insert_author}</if>
+            <if test="insert_authors != null and insert_authors != ''">and find_in_set(a.insert_author, #{insert_authors})</if>
+            <if test="article_types != null and article_types != ''">and find_in_set(a.article_type, #{article_types})</if>
+            <if test="types != null and types != ''">and find_in_set(a.types, #{types})</if>
+            <if test="like != null and like != ''">and b.like > 0</if>
+            <if test="like_user_id != null and like_user_id != ''">and find_in_set(b.user_id, #{like_user_id})</if>
+        </where>
+        order by insert_time desc
+    </select>
+
 
 </mapper>

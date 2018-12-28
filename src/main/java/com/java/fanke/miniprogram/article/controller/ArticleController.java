@@ -52,6 +52,16 @@ public class ArticleController {
         return new Result(100, JSONObject.parseObject(s1, Map.class));
     }
 
+    @RequestMapping("pageByArticleInLike")
+    public Result pageByArticleInLike(@RequestBody Map<String, Object> params, HttpSession session) {
+        LOGGER.info("分页查询文章信息参数：{}", params);
+        PageInfo res = articleService.pageByArticleInLike(params);
+        String s = JSONObject.toJSONString(res);
+        String s1 = EmojiParser.parseToUnicode(s);
+        LOGGER.info("分页查询文章信息返回：{}", s1);
+        return new Result(100, JSONObject.parseObject(s1, Map.class));
+    }
+
     @RequestMapping("getByArticleId")
     public Result getByArticleId(@RequestBody Map<String, Object> params, HttpSession session) {
         LOGGER.info("根据id查询文章信息参数：{}", params);

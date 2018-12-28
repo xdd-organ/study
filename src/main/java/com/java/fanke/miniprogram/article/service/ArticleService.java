@@ -24,4 +24,6 @@ public interface ArticleService {
     int delComment(Map<String, Object> params);
 
     Map<String,Object> getByArticleId(Map<String,Object> params);
+
+    PageInfo pageByArticleInLike(Map<String,Object> params);
 }

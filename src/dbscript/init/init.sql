@@ -172,7 +172,6 @@ CREATE TABLE `fault_feedback` (
    `type` int(11) DEFAULT '0' COMMENT '处理状态，0：未处理，1：已处理',
    `result` varchar(512) DEFAULT NULL COMMENT '处理结果描述',
    `fault_type` int(11) DEFAULT NULL COMMENT '0：，1：，2：，3：',
-   `device_no` varchar(64) DEFAULT NULL COMMENT '设备编号',
    `imgs` varchar(512) DEFAULT NULL COMMENT '图片',
    `desc` varchar(512) DEFAULT NULL COMMENT '备注',
    `status` int(11) DEFAULT '0' COMMENT '0：有效，1：删除',

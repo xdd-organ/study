@@ -9,6 +9,8 @@ public interface ArticleMapper {
 
     List<Map<String, Object>> listByArticle(Map<String,Object> params);
 
+    List<Map<String, Object>> listByArticleInLike(Map<String,Object> params);
+
     int update(Map<String,Object> params);
 
     int like(Map<String,Object> params);
