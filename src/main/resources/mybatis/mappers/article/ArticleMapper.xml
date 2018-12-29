@@ -35,7 +35,7 @@
     <select id="listByArticle" parameterType="java.util.Map" resultMap="listByArticleMap">
         SELECT 	a.*,a.insert_author ui,a.id idi,#{login_user_id} uii,a.id uiii,'0' as ss	FROM article a
         <where>
-            <if test="title != null and title != ''">and a.title = #{title}</if>
+            <if test="title != null and title != ''">and a.title like concat('%',#{title},'%')</if>
             <if test="type != null and type != ''">and a.type = #{type}</if>
             <if test="article_type != null and article_type != ''">and a.article_type = #{article_type}</if>
             <if test="category != null and category != ''">and a.category = #{category}</if>
