@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.fanke.miniprogram.institute.mapper.InstituteMapper">
+
+    <insert id="insert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        <selectKey keyProperty="id" resultType="java.lang.Long">
+            select last_insert_id()
+        </selectKey>
+        INSERT INTO institute
+        (
+            `name`,
+            `describe`,
+            phone,
+            `type`,
+            address,
+            cover_urls,
+            insert_author,
+            update_author
+        )
+        VALUES
+        (
+            #{name},
+            #{describe},
+            #{phone},
+            #{type},
+            #{address},
+            #{cover_urls},
+            #{insert_author},
+            #{insert_author}
+        );
+    </insert>
+
+    <select id="listByInstitute" parameterType="java.util.Map" resultType="java.util.Map">
+        select a.* from institute a
+        <where>
+            <if test="name != null and name != ''">and a.name like concat('%',#{name},'%')</if>
+            <if test="type != null and type != ''">and a.type like concat('%',#{type},'%')</if>
+            <if test="phone != null and phone != ''">and a.phone like concat('%',#{phone},'%')</if>
+            <if test="state != null and state != ''">and a.state = #{state}</if>
+        </where>
+    </select>
+
+
+
+
+</mapper>

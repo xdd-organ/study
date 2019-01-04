@@ -225,4 +225,34 @@ CREATE TABLE user_score_flow
   UNIQUE (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户积分流水';
 
+CREATE TABLE institute
+(
+  id            INT AUTO_INCREMENT
+    PRIMARY KEY,
+  name       VARCHAR(64)                                NULL
+  COMMENT '名称',
+  `describe`       VARCHAR(1024)                                NULL
+  COMMENT '描述',
+  phone       VARCHAR(16)                                NULL
+  COMMENT '电话',
+  type       VARCHAR(128)                                NULL
+  COMMENT '主营业务',
+  address        VARCHAR(1024)                  NULL
+  COMMENT '地址',
+  cover_urls        VARCHAR(1024)                  NULL
+  COMMENT '封面图片url',
+  state       INT      DEFAULT 0            NULL
+  COMMENT '0：有效，1：删除',
+  insert_author       INT                                 NULL
+  COMMENT '插入人',
+  insert_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  update_author       INT                                 NULL
+  COMMENT '更新人',
+  update_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  CONSTRAINT institute_id_uindex
+  UNIQUE (id)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='机构';
+
+
+
 
