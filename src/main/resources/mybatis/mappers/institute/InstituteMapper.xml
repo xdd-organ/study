@@ -40,6 +40,17 @@
         </where>
     </select>
 
+    <select id="getByInstitute" parameterType="java.util.Map" resultType="java.util.Map">
+        select a.* from institute a
+        <where>
+            <if test="id != null and id != ''">and a.id = #{id}</if>
+            <if test="name != null and name != ''">and a.name like concat('%',#{name},'%')</if>
+            <if test="type != null and type != ''">and a.type like concat('%',#{type},'%')</if>
+            <if test="phone != null and phone != ''">and a.phone like concat('%',#{phone},'%')</if>
+            <if test="state != null and state != ''">and a.state = #{state}</if>
+        </where>
+    </select>
+
 
 
 

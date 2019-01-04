@@ -42,4 +42,12 @@ public class InstituteController {
         return new Result(100, res);
     }
 
+    @RequestMapping("getByInstitute")
+    public Result getByInstitute(@RequestBody Map<String, Object> params) {
+        LOGGER.info("查询机构详情参数：{}", params);
+        Map<String, Object> res = instituteService.getByInstitute(params);
+        LOGGER.info("查询机构详情返回：{}", res);
+        return new Result(100, res);
+    }
+
 }

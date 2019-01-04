@@ -26,4 +26,9 @@ public class InstituteServiceImpl implements InstituteService {
         PageHelper.startPage(Integer.valueOf(params.get("pageNum").toString()), Integer.valueOf(params.get("pageSize").toString()));
         return new PageInfo(instituteMapper.listByInstitute(params));
     }
+
+    @Override
+    public Map<String, Object> getByInstitute(Map<String, Object> params) {
+        return instituteMapper.getByInstitute(params);
+    }
 }
