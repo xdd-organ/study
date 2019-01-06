@@ -90,6 +90,7 @@ public class FileServiceImpl implements FileService {
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
                 long size = file.getSize()/1000; //KB
+                logger.info("文件大小：{}", size);
                 String suffix = fileName.substring(fileName.lastIndexOf("."));
                 String filePath = classPath + imgPath + File.separator + DateUtil.getDateyyyyMMdd();
                 File saveFile = new File(filePath);

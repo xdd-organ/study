@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class VideoScreenshot {
@@ -60,8 +61,6 @@ public class VideoScreenshot {
 
     public static void fetchFrame(InputStream videofile, String framefile) {
           try {
-
-
               long start = System.currentTimeMillis();
               File targetFile = new File(framefile);
               FFmpegFrameGrabber ff = new FFmpegFrameGrabber(videofile);
@@ -98,6 +97,12 @@ public class VideoScreenshot {
               LOGGER.info("耗時：{}", System.currentTimeMillis() - start);
           } catch (Exception e) {
               LOGGER.error("保存视频封面图片报错", e);
+          } finally {
+              try {
+                  if (videofile != null) videofile.close();
+              } catch (IOException e) {
+                  LOGGER.error("保存视频封面图片报错", e);
+              }
           }
     }
 }

@@ -46,6 +46,7 @@ public class FileController {
      */
     @RequestMapping(value = "/uploadVideo")
     public Result uploadVideo(@RequestParam("file") MultipartFile[] files, HttpServletRequest request) {
+        logger.info("上传视频，并返回封面图:{}", files.length);
         List<Map<String, Object>> rsp = fileService.uploadVideo(files);
         return new Result(100, rsp);
     }
