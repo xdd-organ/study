@@ -72,7 +72,7 @@ public class VideoScreenshot {
               while (i < lenght) {
                   // 过滤前5帧，避免出现全黑的图片，依自己情况而定
                   f = ff.grabFrame();
-                  if ((i > 5) && (f.image != null)) {
+                  if ((i > 5) && (f.image != null) && ff.getImageHeight() > 0) {
                       break;
                   }
                   i++;

@@ -22,7 +22,7 @@
   COMMENT '点赞数',
   favorite        INT DEFAULT '0'                     NULL
   COMMENT '收藏数',
-  img_urls        VARCHAR(1024)                  NULL
+  img_urls        VARCHAR(2048)                  NULL
   COMMENT '图片url',
   cover_urls        VARCHAR(1024)                  NULL
   COMMENT '封面图片url',
