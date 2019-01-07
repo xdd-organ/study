@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -141,6 +142,16 @@ public class ArticleController {
         String s1 = EmojiParser.parseToUnicode(s);
         LOGGER.info("分页查询文章评论返回：{}", res);
         return new Result(100, JSONObject.parseObject(s1, Map.class));
+    }
+
+    @RequestMapping("hotSearch")
+    public Result hotSearch(@RequestBody(required = false) Map<String, Object> params, HttpSession session) {
+        LOGGER.info("热搜参数：{}", params);
+        List<Map<String, Object>> res = articleService.hotSearch(params);
+        String s = JSONObject.toJSONString(res);
+        String s1 = EmojiParser.parseToUnicode(s);
+        LOGGER.info("热搜返回：{}", res);
+        return new Result(100, JSONObject.parseObject(s1, List.class));
     }
 
 }

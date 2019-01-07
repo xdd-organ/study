@@ -254,5 +254,22 @@ CREATE TABLE institute
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='机构';
 
 
+CREATE TABLE user_browse
+(
+  id            INT AUTO_INCREMENT
+    PRIMARY KEY,
+  user_id       int(11)                                NULL
+  COMMENT '用户id',
+  `article_id`       int(11)                                NULL
+  COMMENT '文章id',
+  state       INT      DEFAULT 0            NULL
+  COMMENT '0：有效，1：删除',
+  insert_author       INT                                 NULL
+  COMMENT '插入人',
+  insert_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  CONSTRAINT user_browse_id_uindex
+  UNIQUE (id)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户浏览记录';
+
 
 

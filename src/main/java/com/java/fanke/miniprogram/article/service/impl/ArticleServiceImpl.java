@@ -3,6 +3,7 @@ package com.java.fanke.miniprogram.article.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.java.fanke.miniprogram.article.mapper.ArticleMapper;
+import com.java.fanke.miniprogram.article.mapper.UserBrowseMapper;
 import com.java.fanke.miniprogram.article.service.ArticleCommentService;
 import com.java.fanke.miniprogram.article.service.ArticleInfoService;
 import com.java.fanke.miniprogram.article.service.ArticleService;
@@ -28,6 +29,8 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleInfoService articleInfoService;
     @Autowired
     private ArticleCommentService articleCommentService;
+    @Autowired
+    private UserBrowseMapper userBrowseMapper;
 
     @Override
     public long insert(Map<String, Object> params) {
@@ -108,6 +111,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Map<String, Object> getByArticleId(Map<String, Object> params) {
+        Map<String, Object> aa = new HashMap<>();
+        aa.put("user_id", params.get("login_user_id"));
+        aa.put("article_id", params.get("id"));
+        userBrowseMapper.insert(aa);
         return articleMapper.getByArticleId(params);
     }
 
@@ -124,5 +131,10 @@ public class ArticleServiceImpl implements ArticleService {
             }
         }*/
         return pageInfo;
+    }
+
+    @Override
+    public List<Map<String, Object>> hotSearch(Map<String, Object> params) {
+        return userBrowseMapper.listByArticle(params);
     }
 }

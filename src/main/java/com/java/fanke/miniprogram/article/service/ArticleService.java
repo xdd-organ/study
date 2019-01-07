@@ -2,6 +2,7 @@ package com.java.fanke.miniprogram.article.service;
 
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ArticleService {
@@ -26,4 +27,6 @@ public interface ArticleService {
     Map<String,Object> getByArticleId(Map<String,Object> params);
 
     PageInfo pageByArticleInLike(Map<String,Object> params);
+
+    List<Map<String,Object>> hotSearch(Map<String,Object> params);
 }
