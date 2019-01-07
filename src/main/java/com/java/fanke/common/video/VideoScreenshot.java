@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.Buffer;
 
 public class VideoScreenshot {
 
@@ -71,8 +72,9 @@ public class VideoScreenshot {
               LOGGER.info("一共{}帧", lenght);
               while (i < lenght) {
                   // 过滤前5帧，避免出现全黑的图片，依自己情况而定
-                  f = ff.grabFrame();
-                  if ((i > 5) && (f.image != null) && ff.getImageHeight() > 0) {
+//                  f = ff.grabFrame();
+                  f = ff.grabKeyFrame();
+                  if (f.image != null) {
                       break;
                   }
                   i++;
@@ -82,6 +84,14 @@ public class VideoScreenshot {
 //              int oheight = f.imageHeight;
               int owidth = ff.getImageWidth();
               int oheight = ff.getImageHeight();
+              if (owidth <= 0) {
+                  owidth = f.imageWidth;
+                  oheight = f.imageHeight;
+              }
+              if (owidth <= 0) {
+                  owidth = 1400;
+                  oheight = 680;
+              }
               LOGGER.info("封面宽：{}，高：{}", owidth, oheight);
               // 对截取的帧进行等比例缩放
               int width = owidth;
