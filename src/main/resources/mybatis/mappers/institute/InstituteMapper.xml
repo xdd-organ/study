@@ -14,6 +14,7 @@
             `type`,
             address,
             cover_urls,
+            img_urls,
             insert_author,
             update_author
         )
@@ -25,6 +26,7 @@
             #{type},
             #{address},
             #{cover_urls},
+            #{img_urls},
             #{insert_author},
             #{insert_author}
         );
