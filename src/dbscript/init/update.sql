@@ -8,3 +8,4 @@ alter table `article` add `category` INT DEFAULT 0 COMMENT '0:学生,1:老师:,2
 alter table `article_comment` add `img_urls` varchar(1024) DEFAULT NULL COMMENT '文件url';
 
 alter table `institute` add `img_urls` varchar(1024) DEFAULT NULL COMMENT '文件url';
+alter table `institute` add `institute_type` int(11) DEFAULT NULL COMMENT '分类';

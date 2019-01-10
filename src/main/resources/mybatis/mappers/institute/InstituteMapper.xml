@@ -15,6 +15,7 @@
             address,
             cover_urls,
             img_urls,
+            institute_type,
             insert_author,
             update_author
         )
@@ -27,6 +28,7 @@
             #{address},
             #{cover_urls},
             #{img_urls},
+            #{institute_type},
             #{insert_author},
             #{insert_author}
         );
@@ -40,6 +42,7 @@
             <if test="phone != null and phone != ''">and a.phone like concat('%',#{phone},'%')</if>
             <if test="state != null and state != ''">and a.state = #{state}</if>
         </where>
+        order by insert_time desc
     </select>
 
     <select id="getByInstitute" parameterType="java.util.Map" resultType="java.util.Map">
