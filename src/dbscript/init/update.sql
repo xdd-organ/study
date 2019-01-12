@@ -9,3 +9,4 @@ alter table `article_comment` add `img_urls` varchar(1024) DEFAULT NULL COMMENT 
 
 alter table `institute` add `img_urls` varchar(1024) DEFAULT NULL COMMENT '文件url';
 alter table `institute` add `institute_type` int(11) DEFAULT NULL COMMENT '分类';
+alter table `institute` add `status` int(11) DEFAULT 0 COMMENT '0:待审核，1：审核通过，2：审核不通过';

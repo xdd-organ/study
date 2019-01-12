@@ -31,4 +31,9 @@ public class InstituteServiceImpl implements InstituteService {
     public Map<String, Object> getByInstitute(Map<String, Object> params) {
         return instituteMapper.getByInstitute(params);
     }
+
+    @Override
+    public int update(Map<String, Object> params) {
+        return instituteMapper.update(params);
+    }
 }

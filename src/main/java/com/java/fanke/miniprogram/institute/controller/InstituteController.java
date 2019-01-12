@@ -50,4 +50,12 @@ public class InstituteController {
         return new Result(100, res);
     }
 
+    @RequestMapping("update")
+    public Result update(@RequestBody Map<String, Object> params) {
+        LOGGER.info("更新机构参数：{}", params);
+        int res = instituteService.update(params);
+        LOGGER.info("更新机构返回：{}", res);
+        return new Result(100, res);
+    }
+
 }

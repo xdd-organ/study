@@ -41,6 +41,8 @@
             <if test="type != null and type != ''">and a.type like concat('%',#{type},'%')</if>
             <if test="phone != null and phone != ''">and a.phone like concat('%',#{phone},'%')</if>
             <if test="state != null and state != ''">and a.state = #{state}</if>
+            <if test="statuses != null and statuses != ''">and find_in_set(a.status, #{statuses})</if>
+            <if test="institute_types != null and institute_types != ''">and find_in_set(a.institute_type, #{institute_types})</if>
         </where>
         order by insert_time desc
     </select>
@@ -56,6 +58,20 @@
         </where>
     </select>
 
+    <update id="update" parameterType="java.util.Map">
+        update institute ;
+        <set>
+            update_time = now(),
+            <if test="state != null and state != ''">state = #{state},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="type != null and type != ''">`type` = #{type},</if>
+            <if test="name != null and name != ''">`name` = #{name},</if>
+            <if test="describe != null and describe != ''">`describe` = #{describe},</if>
+            <if test="institute_types != null and institute_types != ''">`institute_types` = #{institute_types},</if>
+        </set>
+        where id = #{id}
+    </update>
 
 
 

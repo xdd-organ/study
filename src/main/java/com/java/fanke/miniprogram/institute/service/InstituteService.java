@@ -10,4 +10,6 @@ public interface InstituteService {
     PageInfo pageByInstitute(Map<String, Object> params);
 
     Map<String,Object> getByInstitute(Map<String,Object> params);
+
+    int update(Map<String,Object> params);
 }

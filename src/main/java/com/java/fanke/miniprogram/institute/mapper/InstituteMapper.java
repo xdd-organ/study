@@ -9,4 +9,6 @@ public interface InstituteMapper {
     List<Map<String, Object>> listByInstitute(Map<String, Object> params);
 
     Map<String,Object> getByInstitute(Map<String,Object> params);
+
+    int update(Map<String,Object> params);
 }
