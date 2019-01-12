@@ -70,7 +70,9 @@
             <if test="describe != null and describe != ''">`describe` = #{describe},</if>
             <if test="institute_types != null and institute_types != ''">`institute_types` = #{institute_types},</if>
         </set>
-        where id = #{id}
+        where
+        <if test="id != null and id != ''">id = #{id}</if>
+        <if test="ids != null and ids != ''">find_in_set(id, #{ids})</if>
     </update>
 
 

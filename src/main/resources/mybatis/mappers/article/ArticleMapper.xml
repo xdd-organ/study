@@ -99,7 +99,8 @@
             <if test="update_author != null and update_author != ''">a.update_author = #{update_author},</if>
         </set>
         WHERE
-          a.id = #{id};
+        <if test="id != null and id != ''">id = #{id}</if>
+        <if test="ids != null and ids != ''">find_in_set(id, #{ids})</if>
     </update>
 
     <update id="like" parameterType="java.util.Map">
