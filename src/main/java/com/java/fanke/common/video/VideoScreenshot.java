@@ -60,8 +60,9 @@ public class VideoScreenshot {
 
     }*/
 
-    public static void fetchFrame(InputStream videofile, String framefile) {
+    public static void fetchFrame(String videofile, String framefile) {
           try {
+              LOGGER.info("截图开始");
               long start = System.currentTimeMillis();
               File targetFile = new File(framefile);
               FFmpegFrameGrabber ff = new FFmpegFrameGrabber(videofile);
@@ -73,11 +74,15 @@ public class VideoScreenshot {
               while (i < lenght) {
                   // 过滤前5帧，避免出现全黑的图片，依自己情况而定
 //                  f = ff.grabFrame();
-                  f = ff.grabKeyFrame();
-                  if (f.image != null) {
+                  f = ff.grabFrame();
+                  if ((i > 5) && (f.image != null)) {
                       break;
                   }
                   i++;
+
+              }
+              if (f == null || f.image == null) {
+                  f = ff.grabKeyFrame();
               }
                 //IplImage img = f.image;
 //              int owidth = f.imageWidth;
@@ -107,12 +112,6 @@ public class VideoScreenshot {
               LOGGER.info("耗時：{}", System.currentTimeMillis() - start);
           } catch (Exception e) {
               LOGGER.error("保存视频封面图片报错", e);
-          } finally {
-              try {
-                  if (videofile != null) videofile.close();
-              } catch (IOException e) {
-                  LOGGER.error("保存视频封面图片报错", e);
-              }
           }
     }
 }

@@ -87,7 +87,7 @@ public class FileServiceImpl implements FileService {
         List<Map<String, Object>> params = null;
         try {
             params = new ArrayList<>();
-            for (MultipartFile file : files) {
+            for (final MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
                 long size = file.getSize()/1000; //KB
                 logger.info("文件大小：{}", size);
@@ -101,8 +101,16 @@ public class FileServiceImpl implements FileService {
 
                 //保存封面图片
                 String coverName = SerialNumber.generateRandomSerial(15) + ".jpg";
-                String coverPath = classPath + imgPath + File.separator + DateUtil.getDateyyyyMMdd()+ File.separator + coverName;
-                VideoScreenshot.fetchFrame(file.getInputStream(), coverPath);
+                final String coverPath = classPath + imgPath + File.separator + DateUtil.getDateyyyyMMdd()+ File.separator + coverName;
+                logger.info("保存封面图片:{}", coverPath);
+                final String filePath1 = filePath;
+                new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        VideoScreenshot.fetchFrame(filePath1, coverPath);
+                    }
+                }).start();
+
 
                 Map<String, Object> param = new HashMap<>();
                 String imgBasePath = DateUtil.getDateyyyyMMdd()+ File.separator + date;
