@@ -2,6 +2,7 @@ package com.java.fanke.common.video;
 
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,11 +62,12 @@ public class VideoScreenshot {
     }*/
 
     public static void fetchFrame(String videofile, String framefile) {
+        FFmpegFrameGrabber ff = null;
           try {
               LOGGER.info("截图开始");
               long start = System.currentTimeMillis();
               File targetFile = new File(framefile);
-              FFmpegFrameGrabber ff = new FFmpegFrameGrabber(videofile);
+              ff = new FFmpegFrameGrabber(videofile);
               ff.start();
               int lenght = ff.getLengthInFrames();
               int i = 0;
@@ -82,6 +84,7 @@ public class VideoScreenshot {
 
               }
               if (f == null || f.image == null) {
+                  LOGGER.info("读取关键帧");
                   f = ff.grabKeyFrame();
               }
                 //IplImage img = f.image;
@@ -112,6 +115,14 @@ public class VideoScreenshot {
               LOGGER.info("耗時：{}", System.currentTimeMillis() - start);
           } catch (Exception e) {
               LOGGER.error("保存视频封面图片报错", e);
+          } finally {
+              if (ff != null) {
+                  try {
+                      ff.close();
+                  } catch (FrameGrabber.Exception e) {
+                      LOGGER.error("保存视频封面图片报错", e);
+                  }
+              }
           }
     }
 }
