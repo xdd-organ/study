@@ -16,6 +16,7 @@
         cover_urls,
         article_type,
         category,
+        <if test="status != null and status != ''">status,</if>
         update_author
         )
         VALUES
@@ -28,6 +29,7 @@
         #{cover_urls},
         #{article_type},
         #{category},
+        <if test="status != null and status != ''">#{status},</if>
         #{user_id}
         );
     </insert>
