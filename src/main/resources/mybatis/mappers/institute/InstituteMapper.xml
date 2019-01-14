@@ -59,7 +59,7 @@
     </select>
 
     <update id="update" parameterType="java.util.Map">
-        update institute ;
+        update institute
         <set>
             update_time = now(),
             <if test="state != null and state != ''">state = #{state},</if>
