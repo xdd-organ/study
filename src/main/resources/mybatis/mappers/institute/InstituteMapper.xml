@@ -16,6 +16,7 @@
             cover_urls,
             img_urls,
             institute_type,
+            institute_type_child,
             insert_author,
             update_author
         )
@@ -29,6 +30,7 @@
             #{cover_urls},
             #{img_urls},
             #{institute_type},
+            #{institute_type_child},
             #{insert_author},
             #{insert_author}
         );
@@ -42,7 +44,8 @@
             <if test="phone != null and phone != ''">and a.phone like concat('%',#{phone},'%')</if>
             <if test="state != null and state != ''">and a.state = #{state}</if>
             <if test="statuses != null and statuses != ''">and find_in_set(a.status, #{statuses})</if>
-            <if test="institute_types != null and institute_types != ''">and find_in_set(a.institute_type, #{institute_types})</if>
+            <if test="institute_type != null and institute_type != ''">and find_in_set(#{institute_type}, a.institute_type)</if>
+            <if test="institute_type_child != null and institute_type_child != ''">and find_in_set(#{institute_type_child}, a.institute_type_child)</if>
         </where>
         order by insert_time desc
     </select>
@@ -68,7 +71,8 @@
             <if test="type != null and type != ''">`type` = #{type},</if>
             <if test="name != null and name != ''">`name` = #{name},</if>
             <if test="describe != null and describe != ''">`describe` = #{describe},</if>
-            <if test="institute_types != null and institute_types != ''">`institute_types` = #{institute_types},</if>
+            <if test="institute_type != null and institute_type != ''">`institute_type` = #{institute_type},</if>
+            <if test="institute_type_child != null and institute_type_child != ''">`institute_type_child` = #{institute_type_child},</if>
         </set>
         where
         <if test="id != null and id != ''">id = #{id}</if>
