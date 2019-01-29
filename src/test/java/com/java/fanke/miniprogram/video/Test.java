@@ -1,15 +1,19 @@
 package com.java.fanke.miniprogram.video;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
- 
-import javax.imageio.ImageIO;
- 
-import org.bytedeco.javacpp.opencv_core.IplImage;
+import com.alibaba.fastjson.JSONObject;
+import com.java.fanke.common.video.VideoScreenshot;
+import com.tls.tls_sigature.tls_sigature;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;
+import com.tls.tls_sigature.*;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class Test {
  
@@ -51,13 +55,27 @@ public class Test {
 	    System.out.println(System.currentTimeMillis() - start);
 	}*/
  
-	public static void main(String[] args) {
-	    try {
+	/*public static void main(String[] args) {
+		boolean blank = StrUtil.isBlank("");
+		String a = new String("1");
+		System.out.println(a.hashCode());
+		a = new String("2");
+		System.out.println(a.hashCode());
+		a = new String("3");
+		System.out.println(a.hashCode());
+		a = new String("2");
+		System.out.println(a.hashCode());
+
+
+		ExcelReader reader = ExcelUtil.getReader(new File(""));
+
+
+		*//*try {
 	        Test.fetchFrame("F:\\aa.mp4", "F:\\test5.jpg");
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    }
-	}
+	    }*//*
+	}*/
 
 	public static void fetchFrame(String videofile, String framefile)
 			throws Exception {
@@ -91,5 +109,22 @@ public class Test {
 		ImageIO.write(bi, "jpg", targetFile);
 		ff.stop();
 		System.out.println(System.currentTimeMillis() - start);
+	}
+
+	@org.junit.Test
+	public void aa() throws Exception {
+        InputStream in = new FileInputStream("E:\\aa.mp4");
+        VideoScreenshot.fetchFrame("E:\\bb.mp4", "E:\\cc.jpg");
+    }
+
+	@org.junit.Test
+	public void test2() throws Exception{
+		String priKeyContent = "";
+		String puiKeyContent = "";
+		tls_sigature.GenTLSSignatureResult result = tls_sigature.GenTLSSignatureEx(1, "admin", priKeyContent);
+		System.out.println(result.urlSig);
+
+		tls_sigature.CheckTLSSignatureResult admin = tls_sigature.CheckTLSSignatureEx(result.urlSig, 1, "admin", puiKeyContent);
+		System.out.println(JSONObject.toJSONString(admin));
 	}
 }
