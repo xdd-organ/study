@@ -218,4 +218,12 @@ public class UserController {
         return new Result(100, res);
     }
 
+    @RequestMapping("getUserSig")
+    public Result getUserSig(@RequestBody Map<String, Object> params) {
+        logger.info("获取腾讯UserSig参数：{}", params);
+        String res = userService.getUserSig(params);
+        logger.info("获取腾讯UserSig返回：{}", res);
+        return new Result(100, res);
+    }
+
 }

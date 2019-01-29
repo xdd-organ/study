@@ -30,4 +30,6 @@ public interface UserService {
     List<Map<String, Object>> listByUserSignIn(Map<String,Object> params);
 
     PageInfo pageBySignIn(Map<String,Object> params);
+
+    String getUserSig(Map<String, Object> params);
 }
