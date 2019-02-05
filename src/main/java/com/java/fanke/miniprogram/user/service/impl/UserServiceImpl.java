@@ -158,7 +158,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getUserSig(Map<String, Object> params) {
-        tls_sigature.GenTLSSignatureResult result = tls_sigature.GenTLSSignatureEx(sdkAppid, sdkAppAdmin, priKeyContent);
+        String ticket = null;
+        if (StringUtils.isEmpty(params.get("ticket"))) {
+            ticket = "admin";
+        } else {
+            ticket = String.valueOf(params.get("ticket"));
+        }
+        tls_sigature.GenTLSSignatureResult result = tls_sigature.GenTLSSignatureEx(sdkAppid, ticket, priKeyContent);
         return result.urlSig;
     }
 }
